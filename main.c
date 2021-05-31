@@ -1,15 +1,15 @@
 #include "menu.h"
-
+#include "Car.h"
 int main(){
 
-    carList car_list;
-    supplierList supplierList;
-    clientList clientList;
-
-    createCarList(&car_list);
-    createSupplierList(&supplierList);
-    createClientList(&clientList);
-    menu(&car_list,&supplierList,&clientList);
-
+    int d;
+    carBST* tree  = createCarTree();
+    addNewCar(tree);
+    addNewCar(tree);
+    addNewCar(tree);
+    /*d = carNumberWithGivenCapacity(tree->root, 0);
+    printf("%d",d);*/
+    tree->root = deleteCar(tree->root, 0);
+    deleteAllCars(tree->root);
     return 0;
 }

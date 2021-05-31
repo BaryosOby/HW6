@@ -5,7 +5,7 @@ typedef struct{
 
     char* name;
     char* surname;
-    char id[10];
+    double id;
     char rentedCarLicense[8];
     char rentDate[11];
     char rentHour[6];
@@ -14,28 +14,31 @@ typedef struct{
 
 typedef struct clientNode_t{
     Client client;
-    struct clientNode_t* next;
+    struct clientNode_t* left;
+    struct clientNode_t* right;
 }clientNode;
 
-typedef struct clientList{
-    clientNode* head;
-}clientList;
+typedef struct {
+    clientNode* root;
+} clientBTS;
 
-/*creates new list of clients*/
-int createClientList(clientList* list);
+
+/*creates empty clientNode*/
+clientBTS * createClientTree();
+
+/*adds new client to the client to clientTree. return 1 if succeed, 0 if failed*/
+int addNewClient(clientBTS * tree);
 
 /*help function to call in addNewClient*/
-int appendClientToList(clientNode ** head, Client newClient);
-
-/*adds new client to the clients list[index]. return 1 if succeed, 0 if failed*/
-int addNewClient(clientNode ** listHead);
+clientNode * appendClientToTree(clientNode * tree, Client newClient);
 
 
-/*gets client id and delete it from the list. returns 1 if succeed, 0 if failed.*/
-int deleteClient(clientNode ** head, const char* id);
+/*gets id number of a client and delete it from the list. returns the tree's root.*/
+clientNode * deleteClient(clientNode * tree, double id);
 
 /*deletes all the clients from the list. returns 1 if succeed, 0 if failed.*/
-int deleteAllClients(clientNode** head);
+int deleteAllClients(clientNode * tree);
+
 
 void printClientCarsForGivenRentDate(clientNode * head, const char* date,int flag);
 

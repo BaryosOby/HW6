@@ -1,8 +1,9 @@
 #include "DataBase.h"
 
+
 #ifndef HW3_MENU_H
 #define HW3_MENU_H
-
+/*
 #define DEFAULTS Car c1 = {"1111111", "11111", "siat", "ibiza", "white", 2007, 2008, 15000, 10000, 1600};\
 Car c2 = {"1231231", "12312", "reno", "megan", "white", 2007, 2008, 15000, 10000, 1600};\
 Car c3 = {"2233445", "22334", "fiat", "uno", "blue",2005, 2007, 140000, 130000, 1600};\
@@ -31,10 +32,10 @@ cl_list.head = appendClientToList(&cl_list.head, cl3);
 
 void menu(carList* carList , supplierList* supplierList, clientList* clientList);
 
-/*helpers for menu*/
+/*helpers for menu
 void carSwitch(int carChoose,carList* carList);
 void clientSwitch(int clientChoose,clientList* clientList);
 void supplierSwitch(int supplierChoose,supplierList * supplierList);
 
-
+*/
 #endif

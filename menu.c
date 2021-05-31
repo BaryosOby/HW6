@@ -1,6 +1,6 @@
 #include "menu.h"
 #include <stdio.h>
-
+/*
 void menu(carList* carList , supplierList* supplierList, clientList* clientList){
     int choose,carChoose,clientChoose,supplierChoose,exitChoose,threeGreatestChoose,carCapChoose, cap,man;
     puts("Welcome to CarsOrganizer \n(BETA version)");
@@ -119,7 +119,7 @@ void menu(carList* carList , supplierList* supplierList, clientList* clientList)
                     puts("cleaning suppliers list.....\ndone!");
                     puts("cleaning clients list.....\ndone!");
                     puts("you good to go!\nByeBye");
-                    check_for_exit();   /*delete before compilation*/
+                    check_for_exit();   /*delete before compilation
                     exit(0);}
                 else{break;}
             default:
@@ -223,3 +223,4 @@ void supplierSwitch(int supplierChoose, supplierList * supplierList) {
     }
 }
 
+*/

@@ -10,38 +10,29 @@ carBST* createCarTree(){
     return newTree;
 }
 
-/*help function to call in addNewCar*/
-int appendCarToList(carNode ** head, Car newCar){
-    carNode* newNode = ALLOC(carNode,1), *curr;
-
-    /*initializing new node's fields. */
-    newNode->car = newCar;
-    newNode->next = NULL;
-
-    /*true when list is empty, or new car's year is earlier then first node's*/
-    if ((*head == NULL) || (*head)->car.manufactorYear >= newCar.manufactorYear){
-        newNode->next = *head;
-        *head = newNode;
-        return 1;
+/*help function to call in addNewCar. orders tree by license number*/
+carNode* appendCarToTree(carNode* tree, Car new_car){
+    carNode* newNode;
+    if(!tree){
+        newNode = ALLOC(carNode ,1);
+        newNode->car = new_car;
+        newNode->left = newNode->right = NULL;
+        return newNode;
     }
 
-    /*finds the first bigger car year*/
-    curr = *head;
-    while((curr->next) && (curr->next->car.manufactorYear < newCar.manufactorYear)){
-        curr = curr->next;
+    if(new_car.licenseNum < tree->car.licenseNum) /* Go left*/
+        tree->left = appendCarToTree(tree->left, new_car);
+    else{ /* Go right*/
+        tree->right = appendCarToTree(tree->right, new_car);
     }
-
-    /*inserting the new node after the current one.*/
-    newNode->next = curr->next;
-    curr->next = newNode;
-    return 1;
+    return tree;
 }
 
-/*adds new car to the cars list in ascending order of manufactoring year.*/
-int addNewCar(carNode ** head) {
+/*adds new car to the cars tree.*/
+int addNewCar(carBST* tree) {
 
     Car new_car;
-    char licenseNum[8];
+    double licenseNum;
     char chassisNum[6];
     int manufactorYear;
     int onRoadSince;
@@ -54,8 +45,8 @@ int addNewCar(carNode ** head) {
     /*setting user inputs to fields
      * checking input validation*/
     puts("please enter licence number (7 digits):");
-    fillFieldStr(licenseNum, 7, 1, 1);
-    strcpy(new_car.licenseNum, licenseNum);
+    fillFieldDouble(&licenseNum, 7, 1);
+    new_car.licenseNum = licenseNum;
 
     puts("please enter chassis number (5 digits): ");
     fillFieldStr(chassisNum, 5, 1, 1);
@@ -90,8 +81,8 @@ int addNewCar(carNode ** head) {
     fillFieldInt(&velocity, 4, 1,1);
     new_car.velocity = velocity;
 
-    /*creates new node and puts it in the list*/
-    appendCarToList(head, new_car);
+    /*creates new node and puts it in the tree*/
+    tree->root = appendCarToTree(tree->root, new_car);
     return 1;
 }
 
@@ -136,33 +127,43 @@ carNode* deleteCar(carNode* tree, double license, int flag){
 
     }
 
-    /*gets input from user*/
-    if(!licenseNum){
-        puts("please enter a license number to delete: ");
-        fillFieldStr(userInput, 7, 1, 1);
-    }
-    else{
-        strcpy(userInput, licenseNum);
-    }
 
-    /*true for first car*/
-    if(strcmp((*head)->car.licenseNum, userInput)== 0) {
-        temp = (*head);
-        *head = (*head)->next;
-        freeCar(temp);
-        return 1;
+/* Option 1: tree is a leaf*/
+    if(!(tree->left) && !(tree->right)) {
+        if (!flag){
+            freeCar(tree);}
+        else FREE(tree);
+
+        return NULL;
     }
+/* Option 2: tree has only one child*/
+    else if(!(tree->left)) {
+        temp = tree->right;
+        if (!flag){
+            freeCar(tree);}
+        else FREE(tree);
 
-
-    if (((*head)->next)&&(strcmp((*head)->next->car.licenseNum, userInput)==0)){
-        /*linking current node to one after the required to delete.*/
-        temp =(*head)->next;
-        (*head)->next = (*head)->next->next;
-        freeCar(temp);
-        return 1;
+        return temp;
     }
+    else if(!(tree->right)) {
+        temp = tree->left;
+        freeCar(tree);
+        return temp;
+    }
+/* Option 3: tree has 2 children*/
+    else {
+        follower = tree->right;
+        followerAddr = &(tree->right);
+        while(follower->left) {
+            followerAddr = &(follower->left);
+            follower = follower->left;
+        }
 
-    return deleteCar(&((*head)->next), userInput);
+        tree->car = follower->car;
+        strcpy(tree->car.manufacturer,
+        *followerAddr = deleteCar(follower, follower->car.licenseNum,1);
+    }
+    return tree;
 }
 
 /*free all the nodes from th tree. returns empty pointer*/
@@ -209,24 +210,8 @@ int carNumberWithGivenCapacity(carNode* root, int cap){
 
 
 
-/*inverse the sorting order of car list*/
-int inverseCarList(carNode** head){
 
-    carNode * last = NULL, *curr = *head, *next = NULL;
-    while (curr){
 
-        next = curr->next;
-        /*pointing the current node's next on the previous node*/
-        curr->next = last;
-        /*defines the current node as the previous*/
-        last = curr;
-        /*define next node as the current*/
-        curr = next;
-    }
-    *head = last;
-
-    return 1;
-}
 
 
 

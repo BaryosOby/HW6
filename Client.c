@@ -3,32 +3,36 @@
 #include "FillField.h"
 #include <stdio.h>
 
-/*creates new list of clients*/
-int createClientList(clientList* list){
-    clientNode* new = ALLOC(clientNode,1);
-    new = NULL;
-    list->head = new;
-    return 1;
+clientBTS* createClientTree(){
+    clientBTS * newTree;
+    newTree = ALLOC(clientBTS ,1);
+    newTree->root = NULL;
+    return newTree;
 }
 
+/*help function to call in addNewClient. orders tree by ids*/
+clientNode * appendClientToTree(clientNode* tree, Client newClient){
+    clientNode * newNode;
+    if(!tree){
+        newNode = ALLOC(clientNode ,1);
+        newNode->client = newClient;
+        newNode->left = newNode->right = NULL;
+        return newNode;
+    }
 
-/*help function to call in addNewClient*/
-int appendClientToList(clientNode ** head, Client newClient){
-    clientNode* newNode = ALLOC(clientNode, 1);
-
-    /*initializing new node's fields. */
-    newNode->client = newClient;
-    newNode->next = *head;
-    /*linking list head to the new node*/
-    *head = newNode;
-    return 1;
+    if(newClient.id < tree->client.id) /* Go left*/
+        tree->left = appendClientToTree(tree->left, newClient);
+    else{ /* Go right*/
+        tree->right = appendClientToTree(tree->right, newClient);
+    }
+    return tree;
 }
 
 /*adds new client to the head of clients list.*/
-int addNewClient(clientNode ** listHead){
+int addNewClient(clientBTS* tree){
 
     Client newClient;
-    char id[10];
+    double id;
     char rentedCarLicense[8];
     char rentDate[11];
     char rentHour[6];
@@ -37,7 +41,7 @@ int addNewClient(clientNode ** listHead){
     printf("please enter new client's details: \n");
 
     /*setting user inputs to fields
-    * checking input validation*/
+     *checking input validation*/
     puts("please enter client name: ");
     newClient.name = fillFiledStrDynamic(2);
 
@@ -45,8 +49,8 @@ int addNewClient(clientNode ** listHead){
     newClient.surname = fillFiledStrDynamic(2);
 
     puts("please enter client's ID (9 digits): ");
-    fillFieldStr(id, 9, 1, 1);
-    strcpy(newClient.id, id);
+    fillFieldDouble(&id, 9, 1);
+    newClient.id = id;
 
     puts("please enter rented car license (7 digits): ");
     fillFieldStr(rentedCarLicense, 7, 1, 1);
@@ -65,7 +69,7 @@ int addNewClient(clientNode ** listHead){
     newClient.priceForDay = priceForDay;
 
     /*creates new node and puts it in the list*/
-    appendClientToList(listHead, newClient);
+    appendClientToTree(tree->root, newClient);
 
     return 1;
 }
@@ -78,59 +82,81 @@ int freeClient(clientNode* node){
     return 1;
 }
 
-/*gets client id and delete it from the list. returns 1 if succeed, -1 if failed.*/
-/*id parameter always starts as NULL.*/
-int deleteClient(clientNode ** head, const char* id){
-    clientNode* temp;
-    char userInput[10];
-    /*base case - empty pointer*/
-    if(*head == NULL){
-        return -1;
-    }
+
+/*delete clientNode by given id*/
+clientNode * deleteClient(clientNode * tree, double id){
+    clientNode *temp, *follower, **followerAddr;
+    double userInput = 0;
 
     /*gets input from user*/
-    if(!id){
-        puts("please enter a client's ID to delete: ");
-        fillFieldStr(userInput, 9, 1, 1);
+    if(id == 0){
+        puts("please enter id for the client you wish to delete:");
+        fillFieldDouble(&userInput, 7, 1);
     }
     else{
-        strcpy(userInput, id);
+        userInput = id;
+    }
+    if (!tree) {
+        return NULL;
     }
 
-    /*true for first client*/
-    if(strcmp((*head)->client.id, userInput) == 0){
-        temp = (*head);
-        *head = (*head)->next;
-        freeClient(temp);
-        return 1;
-    }
-    if (((*head)->next)&&(strcmp((*head)->next->client.id, userInput) == 0)){
-        /*linking current node to one after the required to delete.*/
-        temp =(*head)->next;
-        (*head)->next = (*head)->next->next;
-        freeClient(temp);
-        return 1;
+    /* searching wanted client in tree's children*/
+    if(tree->client.id != userInput) {
+        /* Go left*/
+        if( id < (tree->client.id)) {
+            tree->left = deleteClient(tree->left, userInput);
+        }
+            /* Go right*/
+        else {
+            tree->right = deleteClient(tree->right, userInput);
+        }
+
     }
 
-    return deleteClient(&((*head)->next), userInput);
+
+/* Option 1: tree is a leaf*/
+    if(!(tree->left) && !(tree->right)) {
+        freeClient(tree);
+        return NULL;
+    }
+/* Option 2: tree has only one child*/
+    else if(!(tree->left)) {
+        temp = tree->right;
+        freeClient(tree);
+        return temp;
+    }
+    else if(!(tree->right)) {
+        temp = tree->left;
+        freeClient(tree);
+        return temp;
+    }
+/* Option 3: tree has 2 children*/
+    else {
+        follower = tree->right;
+        followerAddr = &(tree->right);
+        while(follower->left) {
+            followerAddr = &(follower->left);
+            follower = follower->left;
+        }
+        tree->client = follower->client;
+        *followerAddr = deleteClient(follower, follower->client.id);
+    }
+    return tree;
 }
 
-/*deletes all the clients from the list. returns 1 if succeed, 0 if failed.*/
-int deleteAllClients(clientNode** head){
-
-    /*recursive function. saves the next node's address and free the current one.*/
-    clientNode * temp;
-    /*base case - empty pointer*/
-    if (!*head){
+/*free all the nodes from th tree. returns empty pointer*/
+int deleteAllClients(clientNode * tree){
+    if(!tree){
         return 1;
     }
-    /*saves the address of the next node and frees the current one*/
-    temp = (*head)->next;
-    freeClient(*head);
-    deleteAllClients(&temp);
-    *head = NULL;
+    /*free children first*/
+    deleteAllClients(tree->left);
+    deleteAllClients(tree->right);
+
+    freeClient(tree);
     return 1;
 }
+
 #ifdef DAVIS
 /*gets rent date from user, prints name and surname of clients that rented a car in this date.
  * date parameter always starts as NULL*/
@@ -163,7 +189,7 @@ void printClientCarsForGivenRentDate(clientNode * head, const char* date,int fla
         printf("\n%s %s", head->client.name, head->client.surname);
     }
     /*goes to the next client in list*/
-    printClientCarsForGivenRentDate(head->next, userInput,flag);
+    /*printClientCarsForGivenRentDate(head->next, userInput,flag);*/
 }
 #endif
 

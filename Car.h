@@ -32,8 +32,7 @@ carBST* createCarTree();
 int addNewCar(carBST* tree);
 
 /*help function to call in addNewCar*/
-int appendCarToList(carNode ** head, Car newCar);
-
+carNode* appendCarToTree(carNode* tree, Car new_car);
 
 /*gets license number of a car and delete it from the list. returns 1 if succeed, 0 if failed.*/
 carNode* deleteCar(carNode* tree, double license);
