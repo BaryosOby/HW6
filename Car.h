@@ -2,7 +2,7 @@
 #define CAR_H
 
 typedef struct{
-    char licenseNum[8];
+    double licenseNum;
     char chassisNum[6];
     char* manufacturer;
     char* model;
@@ -14,40 +14,36 @@ typedef struct{
     int velocity;
 }Car;
 
-
 typedef struct carNode_t{
     Car car;
-    struct carNode_t* next;
+    struct carNode_t* left;
+    struct carNode_t* right;
 }carNode;
 
-typedef struct carList{
-    carNode* head;
-}carList;
+typedef struct {
+    carNode* root;
+} carBST;
 
 
-/*creates new list of cars*/
-int createCarList();
+/*creates empty carNode*/
+carBST* createCarTree();
 
 /*adds new car to the cars list[index]. return 1 if succeed, 0 if failed*/
-int addNewCar(carNode ** head);
+int addNewCar(carBST* tree);
 
 /*help function to call in addNewCar*/
 int appendCarToList(carNode ** head, Car newCar);
 
 
 /*gets license number of a car and delete it from the list. returns 1 if succeed, 0 if failed.*/
-int deleteCar(carNode** head, const char* licenseNum);
+carNode* deleteCar(carNode* tree, double license);
 
 /*deletes all the cars from the list. returns 1 if succeed, 0 if failed.*/
-int deleteAllCars(carNode** head);
+int deleteAllCars(carNode* tree);
 
 /*returns the number of cars from the list with a given capacity*/
-int carNumberWithGivenCapacity(carNode** head);
+int carNumberWithGivenCapacity(carNode* root, int cap);
 
-int carNumberWithGivenCapacity_REC(carNode** head, int cap);
-
-Car createDefultCar();
-int inverseCarList(carNode** head);
 
 
 #endif

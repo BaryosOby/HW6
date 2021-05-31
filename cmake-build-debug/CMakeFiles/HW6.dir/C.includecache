@@ -6,35 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/baryos/Documents/MATAM/HW6/Car.c
-Car.h
-/home/baryos/Documents/MATAM/HW6/Car.h
-string.h
--
-FillField.h
-/home/baryos/Documents/MATAM/HW6/FillField.h
-
 /home/baryos/Documents/MATAM/HW6/Car.h
 
-/home/baryos/Documents/MATAM/HW6/Client.c
-Client.h
 /home/baryos/Documents/MATAM/HW6/Client.h
-string.h
--
-FillField.h
-/home/baryos/Documents/MATAM/HW6/FillField.h
-stdio.h
--
-
-/home/baryos/Documents/MATAM/HW6/Client.h
-
-/home/baryos/Documents/MATAM/HW6/DataBase.c
-DataBase.h
-/home/baryos/Documents/MATAM/HW6/DataBase.h
-string.h
--
-stdio.h
--
 
 /home/baryos/Documents/MATAM/HW6/DataBase.h
 Car.h
@@ -43,10 +17,6 @@ Client.h
 /home/baryos/Documents/MATAM/HW6/Client.h
 Supplier.h
 /home/baryos/Documents/MATAM/HW6/Supplier.h
-FillField.h
-/home/baryos/Documents/MATAM/HW6/FillField.h
-
-/home/baryos/Documents/MATAM/HW6/FillField.c
 FillField.h
 /home/baryos/Documents/MATAM/HW6/FillField.h
 
@@ -56,21 +26,7 @@ Validation.h
 matam.h
 /home/baryos/Documents/MATAM/HW6/matam.h
 
-/home/baryos/Documents/MATAM/HW6/Supplier.c
-Supplier.h
 /home/baryos/Documents/MATAM/HW6/Supplier.h
-string.h
--
-FillField.h
-/home/baryos/Documents/MATAM/HW6/FillField.h
-stdio.h
--
-
-/home/baryos/Documents/MATAM/HW6/Supplier.h
-
-/home/baryos/Documents/MATAM/HW6/Validation.c
-Validation.h
-/home/baryos/Documents/MATAM/HW6/Validation.h
 
 /home/baryos/Documents/MATAM/HW6/Validation.h
 stdlib.h
@@ -82,11 +38,11 @@ stdio.h
 string.h
 -
 
-/home/baryos/Documents/MATAM/HW6/matam.c
-matam.h
-/home/baryos/Documents/MATAM/HW6/matam.h
-stdio.h
--
+/home/baryos/Documents/MATAM/HW6/main.c
+menu.h
+/home/baryos/Documents/MATAM/HW6/menu.h
+Car.h
+/home/baryos/Documents/MATAM/HW6/Car.h
 
 /home/baryos/Documents/MATAM/HW6/matam.h
 malloc.h
@@ -94,12 +50,6 @@ malloc.h
 stdio.h
 -
 stdlib.h
--
-
-/home/baryos/Documents/MATAM/HW6/menu.c
-menu.h
-/home/baryos/Documents/MATAM/HW6/menu.h
-stdio.h
 -
 
 /home/baryos/Documents/MATAM/HW6/menu.h

@@ -36,7 +36,15 @@ CMakeFiles/HW6.dir/Supplier.c.o: ../matam.h
 CMakeFiles/HW6.dir/Validation.c.o: ../Validation.c
 CMakeFiles/HW6.dir/Validation.c.o: ../Validation.h
 
+CMakeFiles/HW6.dir/main.c.o: ../Car.h
+CMakeFiles/HW6.dir/main.c.o: ../Client.h
+CMakeFiles/HW6.dir/main.c.o: ../DataBase.h
+CMakeFiles/HW6.dir/main.c.o: ../FillField.h
+CMakeFiles/HW6.dir/main.c.o: ../Supplier.h
+CMakeFiles/HW6.dir/main.c.o: ../Validation.h
 CMakeFiles/HW6.dir/main.c.o: ../main.c
+CMakeFiles/HW6.dir/main.c.o: ../matam.h
+CMakeFiles/HW6.dir/main.c.o: ../menu.h
 
 CMakeFiles/HW6.dir/matam.c.o: ../matam.c
 CMakeFiles/HW6.dir/matam.c.o: ../matam.h

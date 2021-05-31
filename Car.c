@@ -2,12 +2,12 @@
 #include <string.h>
 #include "FillField.h"
 
-/*creates new carList object*/
-int createCarList(carList* list){
-    carNode* new = ALLOC(carNode,1);
-    new = NULL;
-    list->head = new;
-    return 1;
+/*creates new car binary search tree pointer*/
+carBST* createCarTree(){
+    carBST* newTree;
+    newTree = ALLOC(carBST , 1);
+    newTree->root = NULL;
+    return newTree;
 }
 
 /*help function to call in addNewCar*/
@@ -97,21 +97,43 @@ int addNewCar(carNode ** head) {
 
 /*free allocated memory*/
 int freeCar(carNode* node){
-    FREE(node->car.manufacturer);
-    FREE(node->car.color);
-    FREE(node->car.model);
-    FREE(node);
+    if(node) {
+        FREE(node->car.manufacturer);
+        FREE(node->car.color);
+        FREE(node->car.model);
+        FREE(node);
+    }
     return 1;
 }
 
-/*gets license number of a car and delete it from the list. returns 1 if succeed, -1 if failed.*/
-/*licenseNum parameter always starts as NULL.*/
-int deleteCar(carNode ** head, const char* licenseNum){
-    carNode* temp;
-    char userInput[8];
-    /*base case - empty pointer*/
-    if(*head == NULL){
-        return -1;
+/*delete carNode by given license number*/
+carNode* deleteCar(carNode* tree, double license, int flag){
+    carNode *temp, *follower, **followerAddr;
+    double userInput = 0;
+
+    /*gets input from user*/
+    if(license == 0){
+        puts("please enter license num for the car you wish to delete:");
+        fillFieldDouble(&userInput, 7, 1);
+    }
+    else{
+        userInput = license;
+    }
+    if (!tree) {
+        return NULL;
+    }
+
+    /* searching wanted car in tree's children*/
+    if(tree->car.licenseNum != userInput) {
+        /* Go left*/
+        if( license < (tree->car.licenseNum)) {
+            tree->left = deleteCar(tree->left, userInput);
+        }
+        /* Go right*/
+        else {
+            tree->right = deleteCar(tree->right, userInput);
+        }
+
     }
 
     /*gets input from user*/
@@ -143,69 +165,49 @@ int deleteCar(carNode ** head, const char* licenseNum){
     return deleteCar(&((*head)->next), userInput);
 }
 
-
-int deleteAllCars(carNode** head){
-
-    /*recursive function. saves the next node's address and free the current one.*/
-    carNode * temp;
-    /*base case - empty pointer*/
-    if (!*head){
+/*free all the nodes from th tree. returns empty pointer*/
+int deleteAllCars(carNode* tree){
+    if(!tree){
         return 1;
     }
-    /*saves the adress of the next node and frees the current one*/
-    temp = (*head)->next;
-    freeCar(*head);
-    deleteAllCars(&temp);
-    *head = NULL;
+    /*free children first*/
+    deleteAllCars(tree->left);
+    deleteAllCars(tree->right);
+
+    freeCar(tree);
     return 1;
 }
 
-/*returns the number of cars from the list with a given capacity*/
-int carNumberWithGivenCapacity(carNode** head){
+/*returns the number of cars in the list with a given capacity*/
+int carNumberWithGivenCapacity(carNode* root, int cap){
     int userInput, res = 0;
-    carNode * curr;
-    /*gets input from user*/
-    puts("please enter a capacity for the check: ");
-    fillFieldInt(&userInput, 4, 1, 1);
-    curr = *head;
-    /*compare every car velocity in the list and increasing the result by 1*/
-    while (curr){
-        if(curr->car.velocity == userInput){
-            res++;
-        }
-        curr = curr->next;
-    }
 
-    return res;
-}
-
-/*returns the number of cars from the list with a given capacity, recursively*/
-/*cap parameter always starts as 0.*/
-int carNumberWithGivenCapacity_REC(carNode** head, int cap){
-
-    /*every call, the function return 1 if car is with the given capacity, else 0.
-     * final result is the sum of all calls.*/
-    int userInput = 0, res = 0;
-
-    /*base case - empty pointer*/
-    if(*head == NULL){
+    if(!root){
         return 0;
     }
+
     /*gets input from user*/
-    if(cap == 0){
+    if(cap == 0) {
         puts("please enter a capacity for the check: ");
-        fillFieldInt(&userInput,4,1,1);
+        fillFieldInt(&userInput, 4, 1, 1);
     }
     else{
         userInput = cap;
     }
 
-    if((*head)->car.velocity == userInput){
-        res = 1;
+    /*increasing result by 1*/
+    if(root->car.velocity == userInput){
+        res++;
     }
-    /*sums the results of every comparison in the list*/
-    return  res + carNumberWithGivenCapacity_REC(&((*head)->next), userInput);
+
+    /*sums results of children*/
+    res += carNumberWithGivenCapacity(root->left, userInput);
+    res += carNumberWithGivenCapacity(root->right, userInput);
+
+    return res;
 }
+
+
 
 /*inverse the sorting order of car list*/
 int inverseCarList(carNode** head){
