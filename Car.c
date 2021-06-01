@@ -87,7 +87,7 @@ int addNewCar(carBST* tree) {
 }
 
 /*free allocated memory*/
-int freeCar(carNode* node){
+int freeCarFields(carNode* node){
     if(node) {
         FREE(node->car.manufacturer);
         FREE(node->car.color);
@@ -98,7 +98,7 @@ int freeCar(carNode* node){
 }
 
 /*delete carNode by given license number*/
-carNode* deleteCar(carNode* tree, double license, int flag){
+carNode* deleteCar(carNode* tree, double license){
     carNode *temp, *follower, **followerAddr;
     double userInput = 0;
 
@@ -130,24 +130,21 @@ carNode* deleteCar(carNode* tree, double license, int flag){
 
 /* Option 1: tree is a leaf*/
     if(!(tree->left) && !(tree->right)) {
-        if (!flag){
-            freeCar(tree);}
-        else FREE(tree);
-
+        freeCarFields(tree);
+        FREE(tree);
         return NULL;
     }
 /* Option 2: tree has only one child*/
     else if(!(tree->left)) {
         temp = tree->right;
-        if (!flag){
-            freeCar(tree);}
-        else FREE(tree);
-
+        freeCarFields(tree);
+        FREE(tree);
         return temp;
     }
     else if(!(tree->right)) {
         temp = tree->left;
-        freeCar(tree);
+        freeCarFields(tree);
+        FREE(tree);
         return temp;
     }
 /* Option 3: tree has 2 children*/
@@ -158,10 +155,8 @@ carNode* deleteCar(carNode* tree, double license, int flag){
             followerAddr = &(follower->left);
             follower = follower->left;
         }
-
-        tree->car = follower->car;
-        strcpy(tree->car.manufacturer,
-        *followerAddr = deleteCar(follower, follower->car.licenseNum,1);
+        deepCopyCarFields(tree, follower->car);
+        *followerAddr = deleteCar(follower, follower->car.licenseNum);
     }
     return tree;
 }
@@ -172,12 +167,18 @@ int deleteAllCars(carNode* tree){
         return 1;
     }
     /*free children first*/
-    deleteAllCars(tree->left);
-    deleteAllCars(tree->right);
-
-    freeCar(tree);
+    deleteAllNodes(tree->left);
+    deleteAllNodes(tree->right);
+    freeCarFields(tree);
+    FREE(tree);
     return 1;
 }
+int deleteAllCars(carBST* tree){
+    deleteAllNodes(tree->root);
+    tree->root =NULL;
+    return 1;
+}
+
 
 /*returns the number of cars in the list with a given capacity*/
 int carNumberWithGivenCapacity(carNode* root, int cap){

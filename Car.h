@@ -25,6 +25,8 @@ typedef struct {
 } carBST;
 
 
+char* copyField(char* source);
+
 /*creates empty carNode*/
 carBST* createCarTree();
 
@@ -38,7 +40,7 @@ carNode* appendCarToTree(carNode* tree, Car new_car);
 carNode* deleteCar(carNode* tree, double license);
 
 /*deletes all the cars from the list. returns 1 if succeed, 0 if failed.*/
-int deleteAllCars(carNode* tree);
+int deleteAllCars(carBST* tree);
 
 /*returns the number of cars from the list with a given capacity*/
 int carNumberWithGivenCapacity(carNode* root, int cap);

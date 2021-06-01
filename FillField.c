@@ -52,7 +52,6 @@ char* fillFiledStrDynamic(int charType){
         if((charCheck == 1)&&(tooShort==1)) {
             /*allocating new string and checks validations*/
             ptr = ALLOC(char, strlen(userInput)+1);
-            /*ptr = (char*)checked_malloc((sizeof (char))*strlen(userInput)+1);*/
             strcpy(ptr, userInput);
             ptr[strlen(ptr)-1]='\0';
             return ptr;
