@@ -8,8 +8,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/HW6.dir/main.c.o"
   "CMakeFiles/HW6.dir/matam.c.o"
   "CMakeFiles/HW6.dir/menu.c.o"
-  "HW6"
+  "HW6.exe"
   "HW6.pdb"
+  "libHW6.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

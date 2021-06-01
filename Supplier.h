@@ -9,14 +9,16 @@ typedef struct Supplier{
     double pastTransactionsSum;
 }Supplier;
 
-typedef struct SupplierNode_T{
+typedef struct supplierNode_t{
     Supplier supplier;
-    struct SupplierNode_T* next;
+    struct supplierNode_t* left;
+    struct supplierNode_t* right;
 }supplierNode;
 
-typedef struct supplierList{
-    supplierNode * head;
-}supplierList;
+typedef struct {
+    supplierNode * root;
+    int size;
+} supplierBST;
 
 
 /*prints every supllier's details in the list*/
@@ -32,9 +34,7 @@ int addNewSupplier(supplierNode ** head);
 int appendSupplierToList(supplierNode ** head, Supplier newSupplier);
 
 /*return array containing the id of the 3 suppliers with the highest pastTransactionsSum*/
-int threeGreatestSuppliers(supplierNode *head);
-
-int threeGreatestSupplier_rec(supplierNode *head,Supplier* greatest);
+int threeGreatestSuppliers(supplierBST tree);
 
 /*gets supplier's name and deletes it from the list.return 1 if succeed else return 0*/
 int deleteSupplier(supplierNode ** head, double id);

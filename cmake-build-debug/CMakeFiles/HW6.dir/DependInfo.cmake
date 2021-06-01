@@ -4,15 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/baryos/Documents/MATAM/HW6/Car.c" "/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/Car.c.o"
-  "/home/baryos/Documents/MATAM/HW6/Client.c" "/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/Client.c.o"
-  "/home/baryos/Documents/MATAM/HW6/DataBase.c" "/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/DataBase.c.o"
-  "/home/baryos/Documents/MATAM/HW6/FillField.c" "/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/FillField.c.o"
-  "/home/baryos/Documents/MATAM/HW6/Supplier.c" "/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/Supplier.c.o"
-  "/home/baryos/Documents/MATAM/HW6/Validation.c" "/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/Validation.c.o"
-  "/home/baryos/Documents/MATAM/HW6/main.c" "/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/main.c.o"
-  "/home/baryos/Documents/MATAM/HW6/matam.c" "/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/matam.c.o"
-  "/home/baryos/Documents/MATAM/HW6/menu.c" "/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/menu.c.o"
+  "/cygdrive/c/Users/elyas/CLionProjects/HW6/Car.c" "/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/Car.c.o"
+  "/cygdrive/c/Users/elyas/CLionProjects/HW6/Client.c" "/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/Client.c.o"
+  "/cygdrive/c/Users/elyas/CLionProjects/HW6/DataBase.c" "/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/DataBase.c.o"
+  "/cygdrive/c/Users/elyas/CLionProjects/HW6/FillField.c" "/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/FillField.c.o"
+  "/cygdrive/c/Users/elyas/CLionProjects/HW6/Supplier.c" "/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/Supplier.c.o"
+  "/cygdrive/c/Users/elyas/CLionProjects/HW6/Validation.c" "/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/Validation.c.o"
+  "/cygdrive/c/Users/elyas/CLionProjects/HW6/main.c" "/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/main.c.o"
+  "/cygdrive/c/Users/elyas/CLionProjects/HW6/matam.c" "/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/matam.c.o"
+  "/cygdrive/c/Users/elyas/CLionProjects/HW6/menu.c" "/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/menu.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

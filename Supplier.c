@@ -123,6 +123,8 @@ int deleteAllSuppliers(supplierNode ** head){
     return 1;
 }
 
+
+
 /*bubble sorting the current list of three greatest suppliers.*/
 void threeGreatestSupplierBubble(Supplier*  greatest){
     int i,j;
@@ -138,94 +140,48 @@ void threeGreatestSupplierBubble(Supplier*  greatest){
     }
 }
 
-/*return array containing the id of the 3 suppliers with the highest pastTransactionsSum*/
-int threeGreatestSuppliers(supplierNode *head){
 
-    /*the function first makes an array of the first three suppliers.
-     * then, sorts the array in ascending order
-     * then, compare the next suppliers with the first in array, which is the smallest one in every iteration*/
-    int i,j;
-    Supplier greatest[3];
-    supplierNode* curr;
-    curr = head;
-    /*makes array of first three suppliers.*/
-    for (i=0;i<3;i++){
-        if (curr==NULL){
-            puts("there are no three suppliers in the list");
-            return -1;
-        }
-        greatest[i] = curr->supplier;
-        curr = curr->next;
+void addToGreatest(Supplier* greatest,supplierNode* tree){
+    if (!tree){
+        return;
     }
-    /*bubble sorting the array*/
-    while (curr){
+    if (tree->supplier.pastTransactionsSum>greatest[0].pastTransactionsSum){
+        greatest[0]=tree->supplier;
         threeGreatestSupplierBubble(greatest);
-        /*insert the next supplier if true instead of the smallest one*/
-        if (curr->supplier.pastTransactionsSum>greatest[0].pastTransactionsSum){
-            greatest[0] = curr->supplier;
-        }
-        curr = curr->next;
     }
-    puts("three greatest suppliers IDs are:");
-    for (j=0;j<3;j++){
-        printf("%d: %0.f \n",j+1,greatest[j].id);
-    }
+    addToGreatest(greatest,tree->left);
+    addToGreatest(greatest,tree->right);
+}
+
+/*return array containing the id of the 3 suppliers with the highest pastTransactionsSum*/
+int threeGreatestSuppliers(supplierBST tree){
+    Supplier greatest[3];
+    int i;
+    if (tree.size<3){
+        puts("there are less then three suplliers in the list")};
+    return -1;
+    for (i = 0; i < 3; i++) {
+        greatest[i].pastTransactionsSum=0;}
+    addToGreatest(greatest,tree.root);
+    puts("three greatest suppliers are:");
+    for(i = 0; i < 3; i++){
+        printf("%d:  %f\n",i+1,greatest[i].pastTransactionsSum);}
     return 1;
+    }
+
+
+double averageOfSupplierMoney(supplierNode* tree ,int n){
+    double res;
+    if (!tree){
+        return 0;
+    }
+    res =(tree->supplier.pastTransactionsSum)/n;
+    res += averageOfSupplierMoney(tree->left,n);
+    res += averageOfSupplierMoney(tree->right,n);
+    return res;
 }
 
-int threeGreatestSupplier_rec(supplierNode *head,Supplier* greatest){
 
-    /*the function first makes an array of the first three suppliers.
-     * then, sorts the array in ascending order
-     * then, compare the next suppliers with the first in array, which is the smallest one in every recursive call*/
-    int i,j;
-    supplierNode* curr;
-    Supplier temp;
-
-    curr = head;
-    /*inserting first three suppliers in the list*/
-    if (greatest == NULL) {
-        greatest = ALLOC(Supplier, 3);
-
-        for (i = 0; i < 3; i++) {
-            if (curr == NULL) {
-                puts("there are no three suppliers in the list");
-                FREE(greatest);
-                return -1;
-            }
-
-            greatest[i] = curr->supplier;
-            curr = curr->next;
-        }
-    }
-    /*bubble sorting the array.*/
-    for (i=0;i<2;i++){
-        for (j=i+1;j<3;j++){
-            if (greatest[i].pastTransactionsSum > greatest[j].pastTransactionsSum){
-                temp = greatest[i];
-                greatest[i] = greatest[j];
-                greatest[j] = temp;
-            }
-        }
-    }
-
-    /*true when in the last supplier.*/
-    if (curr == NULL) {
-        puts("three greatest suppliers IDs are:");
-        for (j=0;j<3;j++){
-            printf("%d: %0.f \n",j+1,greatest[j].id);
-        }
-        FREE(greatest);
-        return 1;
-    }
-
-    /*inserting next supplier instead of the smallest one if true.*/
-    if (curr->supplier.pastTransactionsSum > greatest[0].pastTransactionsSum){
-        greatest[0] = curr->supplier;
-    }
-    curr = curr->next;
-    return threeGreatestSupplier_rec(curr,greatest);
-}
 #ifdef DAVIS
 /*prints every supplier's details in the list*/
 int printSuppliers(supplierNode* head){

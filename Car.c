@@ -2,6 +2,8 @@
 #include <string.h>
 #include "FillField.h"
 
+
+
 /*creates new car binary search tree pointer*/
 carBST* createCarTree(){
     carBST* newTree;
@@ -97,6 +99,12 @@ int freeCar(carNode* node){
     return 1;
 }
 
+Car * copyAndFree(car* copyFrom ){
+    char* temp;
+    temp= (char*)checked_malloc(strlen(copyFrom));
+    strcpy(temp,copyFrom);
+    freeCar(copyFrom);
+}
 /*delete carNode by given license number*/
 carNode* deleteCar(carNode* tree, double license, int flag){
     carNode *temp, *follower, **followerAddr;

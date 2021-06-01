@@ -54,19 +54,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/baryos/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /cygdrive/c/Users/elyas/AppData/Local/JetBrains/CLion2020.3/cygwin_cmake/bin/cmake.exe
 
 # The command to remove a file.
-RM = /home/baryos/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/bin/cmake/linux/bin/cmake -E rm -f
+RM = /cygdrive/c/Users/elyas/AppData/Local/JetBrains/CLion2020.3/cygwin_cmake/bin/cmake.exe -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/baryos/Documents/MATAM/HW6
+CMAKE_SOURCE_DIR = /cygdrive/c/Users/elyas/CLionProjects/HW6
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/baryos/Documents/MATAM/HW6/cmake-build-debug
+CMAKE_BINARY_DIR = /cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/HW6.dir/depend.make
@@ -79,120 +79,120 @@ include CMakeFiles/HW6.dir/flags.make
 
 CMakeFiles/HW6.dir/Car.c.o: CMakeFiles/HW6.dir/flags.make
 CMakeFiles/HW6.dir/Car.c.o: ../Car.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/HW6.dir/Car.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/Car.c.o   -c /home/baryos/Documents/MATAM/HW6/Car.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/HW6.dir/Car.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/Car.c.o   -c /cygdrive/c/Users/elyas/CLionProjects/HW6/Car.c
 
 CMakeFiles/HW6.dir/Car.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HW6.dir/Car.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/baryos/Documents/MATAM/HW6/Car.c > CMakeFiles/HW6.dir/Car.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/elyas/CLionProjects/HW6/Car.c > CMakeFiles/HW6.dir/Car.c.i
 
 CMakeFiles/HW6.dir/Car.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HW6.dir/Car.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/baryos/Documents/MATAM/HW6/Car.c -o CMakeFiles/HW6.dir/Car.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/elyas/CLionProjects/HW6/Car.c -o CMakeFiles/HW6.dir/Car.c.s
 
 CMakeFiles/HW6.dir/Client.c.o: CMakeFiles/HW6.dir/flags.make
 CMakeFiles/HW6.dir/Client.c.o: ../Client.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/HW6.dir/Client.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/Client.c.o   -c /home/baryos/Documents/MATAM/HW6/Client.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/HW6.dir/Client.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/Client.c.o   -c /cygdrive/c/Users/elyas/CLionProjects/HW6/Client.c
 
 CMakeFiles/HW6.dir/Client.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HW6.dir/Client.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/baryos/Documents/MATAM/HW6/Client.c > CMakeFiles/HW6.dir/Client.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/elyas/CLionProjects/HW6/Client.c > CMakeFiles/HW6.dir/Client.c.i
 
 CMakeFiles/HW6.dir/Client.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HW6.dir/Client.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/baryos/Documents/MATAM/HW6/Client.c -o CMakeFiles/HW6.dir/Client.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/elyas/CLionProjects/HW6/Client.c -o CMakeFiles/HW6.dir/Client.c.s
 
 CMakeFiles/HW6.dir/DataBase.c.o: CMakeFiles/HW6.dir/flags.make
 CMakeFiles/HW6.dir/DataBase.c.o: ../DataBase.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/HW6.dir/DataBase.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/DataBase.c.o   -c /home/baryos/Documents/MATAM/HW6/DataBase.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/HW6.dir/DataBase.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/DataBase.c.o   -c /cygdrive/c/Users/elyas/CLionProjects/HW6/DataBase.c
 
 CMakeFiles/HW6.dir/DataBase.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HW6.dir/DataBase.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/baryos/Documents/MATAM/HW6/DataBase.c > CMakeFiles/HW6.dir/DataBase.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/elyas/CLionProjects/HW6/DataBase.c > CMakeFiles/HW6.dir/DataBase.c.i
 
 CMakeFiles/HW6.dir/DataBase.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HW6.dir/DataBase.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/baryos/Documents/MATAM/HW6/DataBase.c -o CMakeFiles/HW6.dir/DataBase.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/elyas/CLionProjects/HW6/DataBase.c -o CMakeFiles/HW6.dir/DataBase.c.s
 
 CMakeFiles/HW6.dir/Supplier.c.o: CMakeFiles/HW6.dir/flags.make
 CMakeFiles/HW6.dir/Supplier.c.o: ../Supplier.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/HW6.dir/Supplier.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/Supplier.c.o   -c /home/baryos/Documents/MATAM/HW6/Supplier.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/HW6.dir/Supplier.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/Supplier.c.o   -c /cygdrive/c/Users/elyas/CLionProjects/HW6/Supplier.c
 
 CMakeFiles/HW6.dir/Supplier.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HW6.dir/Supplier.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/baryos/Documents/MATAM/HW6/Supplier.c > CMakeFiles/HW6.dir/Supplier.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/elyas/CLionProjects/HW6/Supplier.c > CMakeFiles/HW6.dir/Supplier.c.i
 
 CMakeFiles/HW6.dir/Supplier.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HW6.dir/Supplier.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/baryos/Documents/MATAM/HW6/Supplier.c -o CMakeFiles/HW6.dir/Supplier.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/elyas/CLionProjects/HW6/Supplier.c -o CMakeFiles/HW6.dir/Supplier.c.s
 
 CMakeFiles/HW6.dir/Validation.c.o: CMakeFiles/HW6.dir/flags.make
 CMakeFiles/HW6.dir/Validation.c.o: ../Validation.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/HW6.dir/Validation.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/Validation.c.o   -c /home/baryos/Documents/MATAM/HW6/Validation.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/HW6.dir/Validation.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/Validation.c.o   -c /cygdrive/c/Users/elyas/CLionProjects/HW6/Validation.c
 
 CMakeFiles/HW6.dir/Validation.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HW6.dir/Validation.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/baryos/Documents/MATAM/HW6/Validation.c > CMakeFiles/HW6.dir/Validation.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/elyas/CLionProjects/HW6/Validation.c > CMakeFiles/HW6.dir/Validation.c.i
 
 CMakeFiles/HW6.dir/Validation.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HW6.dir/Validation.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/baryos/Documents/MATAM/HW6/Validation.c -o CMakeFiles/HW6.dir/Validation.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/elyas/CLionProjects/HW6/Validation.c -o CMakeFiles/HW6.dir/Validation.c.s
 
 CMakeFiles/HW6.dir/main.c.o: CMakeFiles/HW6.dir/flags.make
 CMakeFiles/HW6.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/HW6.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/main.c.o   -c /home/baryos/Documents/MATAM/HW6/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/HW6.dir/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/main.c.o   -c /cygdrive/c/Users/elyas/CLionProjects/HW6/main.c
 
 CMakeFiles/HW6.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HW6.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/baryos/Documents/MATAM/HW6/main.c > CMakeFiles/HW6.dir/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/elyas/CLionProjects/HW6/main.c > CMakeFiles/HW6.dir/main.c.i
 
 CMakeFiles/HW6.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HW6.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/baryos/Documents/MATAM/HW6/main.c -o CMakeFiles/HW6.dir/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/elyas/CLionProjects/HW6/main.c -o CMakeFiles/HW6.dir/main.c.s
 
 CMakeFiles/HW6.dir/FillField.c.o: CMakeFiles/HW6.dir/flags.make
 CMakeFiles/HW6.dir/FillField.c.o: ../FillField.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/HW6.dir/FillField.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/FillField.c.o   -c /home/baryos/Documents/MATAM/HW6/FillField.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/HW6.dir/FillField.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/FillField.c.o   -c /cygdrive/c/Users/elyas/CLionProjects/HW6/FillField.c
 
 CMakeFiles/HW6.dir/FillField.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HW6.dir/FillField.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/baryos/Documents/MATAM/HW6/FillField.c > CMakeFiles/HW6.dir/FillField.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/elyas/CLionProjects/HW6/FillField.c > CMakeFiles/HW6.dir/FillField.c.i
 
 CMakeFiles/HW6.dir/FillField.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HW6.dir/FillField.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/baryos/Documents/MATAM/HW6/FillField.c -o CMakeFiles/HW6.dir/FillField.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/elyas/CLionProjects/HW6/FillField.c -o CMakeFiles/HW6.dir/FillField.c.s
 
 CMakeFiles/HW6.dir/matam.c.o: CMakeFiles/HW6.dir/flags.make
 CMakeFiles/HW6.dir/matam.c.o: ../matam.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/HW6.dir/matam.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/matam.c.o   -c /home/baryos/Documents/MATAM/HW6/matam.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/HW6.dir/matam.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/matam.c.o   -c /cygdrive/c/Users/elyas/CLionProjects/HW6/matam.c
 
 CMakeFiles/HW6.dir/matam.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HW6.dir/matam.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/baryos/Documents/MATAM/HW6/matam.c > CMakeFiles/HW6.dir/matam.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/elyas/CLionProjects/HW6/matam.c > CMakeFiles/HW6.dir/matam.c.i
 
 CMakeFiles/HW6.dir/matam.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HW6.dir/matam.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/baryos/Documents/MATAM/HW6/matam.c -o CMakeFiles/HW6.dir/matam.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/elyas/CLionProjects/HW6/matam.c -o CMakeFiles/HW6.dir/matam.c.s
 
 CMakeFiles/HW6.dir/menu.c.o: CMakeFiles/HW6.dir/flags.make
 CMakeFiles/HW6.dir/menu.c.o: ../menu.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/HW6.dir/menu.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/menu.c.o   -c /home/baryos/Documents/MATAM/HW6/menu.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/HW6.dir/menu.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HW6.dir/menu.c.o   -c /cygdrive/c/Users/elyas/CLionProjects/HW6/menu.c
 
 CMakeFiles/HW6.dir/menu.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HW6.dir/menu.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/baryos/Documents/MATAM/HW6/menu.c > CMakeFiles/HW6.dir/menu.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/elyas/CLionProjects/HW6/menu.c > CMakeFiles/HW6.dir/menu.c.i
 
 CMakeFiles/HW6.dir/menu.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HW6.dir/menu.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/baryos/Documents/MATAM/HW6/menu.c -o CMakeFiles/HW6.dir/menu.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/elyas/CLionProjects/HW6/menu.c -o CMakeFiles/HW6.dir/menu.c.s
 
 # Object files for target HW6
 HW6_OBJECTS = \
@@ -209,22 +209,22 @@ HW6_OBJECTS = \
 # External object files for target HW6
 HW6_EXTERNAL_OBJECTS =
 
-HW6: CMakeFiles/HW6.dir/Car.c.o
-HW6: CMakeFiles/HW6.dir/Client.c.o
-HW6: CMakeFiles/HW6.dir/DataBase.c.o
-HW6: CMakeFiles/HW6.dir/Supplier.c.o
-HW6: CMakeFiles/HW6.dir/Validation.c.o
-HW6: CMakeFiles/HW6.dir/main.c.o
-HW6: CMakeFiles/HW6.dir/FillField.c.o
-HW6: CMakeFiles/HW6.dir/matam.c.o
-HW6: CMakeFiles/HW6.dir/menu.c.o
-HW6: CMakeFiles/HW6.dir/build.make
-HW6: CMakeFiles/HW6.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable HW6"
+HW6.exe: CMakeFiles/HW6.dir/Car.c.o
+HW6.exe: CMakeFiles/HW6.dir/Client.c.o
+HW6.exe: CMakeFiles/HW6.dir/DataBase.c.o
+HW6.exe: CMakeFiles/HW6.dir/Supplier.c.o
+HW6.exe: CMakeFiles/HW6.dir/Validation.c.o
+HW6.exe: CMakeFiles/HW6.dir/main.c.o
+HW6.exe: CMakeFiles/HW6.dir/FillField.c.o
+HW6.exe: CMakeFiles/HW6.dir/matam.c.o
+HW6.exe: CMakeFiles/HW6.dir/menu.c.o
+HW6.exe: CMakeFiles/HW6.dir/build.make
+HW6.exe: CMakeFiles/HW6.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable HW6.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HW6.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/HW6.dir/build: HW6
+CMakeFiles/HW6.dir/build: HW6.exe
 
 .PHONY : CMakeFiles/HW6.dir/build
 
@@ -233,6 +233,6 @@ CMakeFiles/HW6.dir/clean:
 .PHONY : CMakeFiles/HW6.dir/clean
 
 CMakeFiles/HW6.dir/depend:
-	cd /home/baryos/Documents/MATAM/HW6/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/baryos/Documents/MATAM/HW6 /home/baryos/Documents/MATAM/HW6 /home/baryos/Documents/MATAM/HW6/cmake-build-debug /home/baryos/Documents/MATAM/HW6/cmake-build-debug /home/baryos/Documents/MATAM/HW6/cmake-build-debug/CMakeFiles/HW6.dir/DependInfo.cmake --color=$(COLOR)
+	cd /cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /cygdrive/c/Users/elyas/CLionProjects/HW6 /cygdrive/c/Users/elyas/CLionProjects/HW6 /cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug /cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug /cygdrive/c/Users/elyas/CLionProjects/HW6/cmake-build-debug/CMakeFiles/HW6.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/HW6.dir/depend
 

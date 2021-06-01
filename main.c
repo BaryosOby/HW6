@@ -1,8 +1,6 @@
 #include "menu.h"
 #include "Car.h"
 int main(){
-
-    int d;
     carBST* tree  = createCarTree();
     addNewCar(tree);
     addNewCar(tree);
