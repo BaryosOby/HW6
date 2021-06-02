@@ -25,7 +25,7 @@ typedef struct {
 } carBST;
 
 
-char* copyField(char* source);
+
 
 /*creates empty carNode*/
 carBST* createCarTree();

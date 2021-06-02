@@ -82,3 +82,10 @@ int fillFieldDouble(double * field, int size,int fixed){
     *field = atof(userInput);
     return 1;
 }
+char* copyField(char* source){
+    char * dest;
+    dest = ALLOC(char, strlen(source)+1);
+    strcpy(dest,source);
+    return dest;
+}
+

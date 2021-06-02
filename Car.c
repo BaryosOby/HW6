@@ -20,6 +20,10 @@ carNode* appendCarToTree(carNode* tree, Car new_car){
         return newNode;
     }
 
+    if(new_car.licenseNum == tree->car.licenseNum) {
+        puts("License number already exists in Data Base.");
+        return NULL;
+    }
     if(new_car.licenseNum < tree->car.licenseNum) /* Go left*/
         tree->left = appendCarToTree(tree->left, new_car);
     else{ /* Go right*/
@@ -92,10 +96,26 @@ int freeCarFields(carNode* node){
         FREE(node->car.manufacturer);
         FREE(node->car.color);
         FREE(node->car.model);
-        FREE(node);
     }
     return 1;
 }
+
+int deepCopyCarFields(carNode* tree,Car follower){
+    freeCarFields(tree);
+    tree->car.manufacturer = copyField(follower.manufacturer);
+    tree->car.color = copyField(follower.color);
+    tree->car.model = copyField(follower.model);
+    tree->car.licenseNum = follower.licenseNum;
+    tree->car.manufactorYear = follower.manufactorYear;
+    tree->car.velocity = follower.velocity;
+    tree->car.onRoadSince = follower.onRoadSince;
+    tree->car.currentPrice = follower.currentPrice;
+    tree->car.priceFromSupplier = follower.priceFromSupplier;
+    strcpy(tree->car.chassisNum, follower.chassisNum);
+
+    return 1;
+}
+
 
 /*delete carNode by given license number*/
 carNode* deleteCar(carNode* tree, double license){
@@ -124,9 +144,7 @@ carNode* deleteCar(carNode* tree, double license){
         else {
             tree->right = deleteCar(tree->right, userInput);
         }
-
     }
-
 
 /* Option 1: tree is a leaf*/
     if(!(tree->left) && !(tree->right)) {
@@ -161,8 +179,8 @@ carNode* deleteCar(carNode* tree, double license){
     return tree;
 }
 
-/*free all the nodes from th tree. returns empty pointer*/
-int deleteAllCars(carNode* tree){
+/*free all the nodes from the tree. returns empty pointer*/
+int deleteAllNodes(carNode* tree){
     if(!tree){
         return 1;
     }
@@ -181,6 +199,7 @@ int deleteAllCars(carBST* tree){
 
 
 /*returns the number of cars in the list with a given capacity*/
+/*cap parameter always starts as 0.*/
 int carNumberWithGivenCapacity(carNode* root, int cap){
     int userInput, res = 0;
 

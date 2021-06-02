@@ -2,30 +2,28 @@
 #include <string.h>
 #include <stdio.h>
 
-/*returns manufacturing year of a car by a given license number
-int getCarYearByLicense(carNode * head ,const char* license){
-
-
-    if(!head){
+/*returns manufacturing year of a car by a given license number*/
+int getCarYearByLicense(carNode * tree ,double license){
+    if(!tree){
         return 0;
-    } if(strcmp(head->car.licenseNum, license) == 0){
-        return head->car.manufactorYear;
     }
-    return getCarYearByLicense(head->next, license);
+    if(tree->car.licenseNum == license){
+        return tree->car.manufactorYear;
+    }
+    if(tree->car.licenseNum > license){
+        return getCarYearByLicense(tree->left , license);
+    }
+    return getCarYearByLicense(tree->right , license);
 }
 
 
-int clientNumberWithGivenCarYear(carNode * car_head, clientNode * client_head, int year) {
-
-
+int clientNumberWithGivenCarYear(carNode * car_tree, clientNode * client_tree, int year) {
     int counter = 0, userYearChoice;
-    char license[8];
+    double license;
 
-
-    if((!car_head) || (!client_head)){
+    if((!car_tree) || (!client_tree)){
         return 0;
     }
-
 
     if(year == 0) {
         puts("please enter a year to check: ");
@@ -35,14 +33,12 @@ int clientNumberWithGivenCarYear(carNode * car_head, clientNode * client_head, i
         userYearChoice = year;
     }
 
-
-    strcpy(license, client_head->client.rentedCarLicense);
-    if(getCarYearByLicense(car_head, license) == userYearChoice){
+    if(getCarYearByLicense(car_tree, license) == userYearChoice){
         counter++;
     }
 
-    return counter + clientNumberWithGivenCarYear(car_head, client_head->next, userYearChoice);
-}*/
+    return counter + clientNumberWithGivenCarYear(car_tree, client_tree->left, userYearChoice)  + clientNumberWithGivenCarYear(car_tree, client_tree->left, userYearChoice);
+}
 
 
 

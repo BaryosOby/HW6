@@ -93,14 +93,17 @@ void menu(carList* carList , supplierList* supplierList, clientList* clientList)
             case 7:
                 inverseCarList(&(carList->head));
                 break;
-#ifdef DAVIS
-                case 8:
-                  printClientCarsForGivenRentDate(clientList->head,NULL,0);
+
+            case 8:
+                  if(!printClientCarsForGivenRentDate(clientBST->root, NULL)){
+                    puts("there are no clients who rented a car in this date...");
+                  }
                   break;
-              case 9:
+
+            case 9:
                    printSuppliers(supplierList->head);
                    break;
-#endif
+
             case 0:
                 puts("Are you sure?\n"
                      "1.yes\n"
