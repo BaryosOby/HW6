@@ -3,9 +3,9 @@
 #include "FillField.h"
 #include <stdio.h>
 
-clientBTS* createClientTree(){
-    clientBTS * newTree;
-    newTree = ALLOC(clientBTS ,1);
+clientBST* createClientTree(){
+    clientBST * newTree;
+    newTree = ALLOC(clientBST , 1);
     newTree->root = NULL;
     return newTree;
 }
@@ -22,7 +22,7 @@ clientNode * appendClientToTree(clientNode* tree, Client newClient){
 
     if(newClient.id == tree->client.id) {
         puts("ID already exists in Data Base.");
-        return NULL;
+        return tree;
     }
     if(newClient.id < tree->client.id) { /* Go left*/
         tree->left = appendClientToTree(tree->left, newClient);
@@ -34,11 +34,11 @@ clientNode * appendClientToTree(clientNode* tree, Client newClient){
 }
 
 /*adds new client to the head of clients list.*/
-int addNewClient(clientBTS* tree){
+int addNewClient(clientBST* tree){
 
     Client newClient;
     double id;
-    char rentedCarLicense[8];
+    double rentedCarLicense;
     char rentDate[11];
     char rentHour[6];
     double priceForDay;
@@ -58,8 +58,8 @@ int addNewClient(clientBTS* tree){
     newClient.id = id;
 
     puts("please enter rented car license (7 digits): ");
-    fillFieldStr(rentedCarLicense, 7, 1, 1);
-    strcpy(newClient.rentedCarLicense, rentedCarLicense);
+    fillFieldDouble(&rentedCarLicense, 7, 1);
+    newClient.rentedCarLicense = rentedCarLicense;
 
     puts("please enter renting date (from 2000) (dd/mm/yyyy format only): ");
     fillFieldStr(rentDate, 10, 3,1);
@@ -74,7 +74,7 @@ int addNewClient(clientBTS* tree){
     newClient.priceForDay = priceForDay;
 
     /*creates new node and puts it in the list*/
-    appendClientToTree(tree->root, newClient);
+    tree->root = appendClientToTree(tree->root, newClient);
 
     return 1;
 }
@@ -89,26 +89,28 @@ int freeClient(clientNode* node){
 
 
 /*delete clientNode by given id*/
+/*id parameter*/
 clientNode * deleteClient(clientNode * tree, double id){
     clientNode *temp, *follower, **followerAddr;
     double userInput = 0;
-
-    /*gets input from user*/
-    if(id == 0){
-        puts("please enter id for the client you wish to delete:");
-        fillFieldDouble(&userInput, 7, 1);
-    }
-    else{
-        userInput = id;
-    }
     if (!tree) {
         return NULL;
     }
 
+    /*gets input from user*/
+    if(id == 0){
+        puts("please enter id for the client you wish to delete: (9 digits)");
+        fillFieldDouble(&userInput, 9, 1);
+    }
+    else{
+        userInput = id;
+    }
+
+
     /* searching wanted client in tree's children*/
     if(tree->client.id != userInput) {
         /* Go left*/
-        if( id < (tree->client.id)) {
+        if( userInput < (tree->client.id)) {
             tree->left = deleteClient(tree->left, userInput);
         }
             /* Go right*/
@@ -116,9 +118,7 @@ clientNode * deleteClient(clientNode * tree, double id){
             tree->right = deleteClient(tree->right, userInput);
         }
 
-    }
-
-
+    } else{
 /* Option 1: tree is a leaf*/
     if(!(tree->left) && !(tree->right)) {
         freeClient(tree);
@@ -145,22 +145,28 @@ clientNode * deleteClient(clientNode * tree, double id){
         }
         tree->client = follower->client;
         *followerAddr = deleteClient(follower, follower->client.id);
+        }
     }
     return tree;
 }
 
-/*free all the nodes from th tree. returns empty pointer*/
-int deleteAllClients(clientNode * tree){
+/*free all the nodes from the tree. returns empty pointer*/
+int deleteAllclientsNodes(clientNode * tree){
     if(!tree){
         return 1;
     }
     /*free children first*/
-    deleteAllClients(tree->left);
-    deleteAllClients(tree->right);
-
+    deleteAllclientsNodes(tree->left);
+    deleteAllclientsNodes(tree->right);
     freeClient(tree);
     return 1;
 }
+int deleteAllClients(clientBST * tree){
+    deleteAllclientsNodes(tree->root);
+    tree->root = NULL;
+    return 1;
+}
+
 
 /*recursive function. every call it compares client's rent date and prints it's name if true.*/
 int printClientCarsForGivenRentDate_rec(clientNode* tree, char* userInput){
@@ -173,7 +179,8 @@ int printClientCarsForGivenRentDate_rec(clientNode* tree, char* userInput){
 
     /*prints client's name and surname*/
     if (strcmp(userInput, tree->client.rentDate) == 0) {
-        printf("\n\t%s %s", tree->client.name, tree->client.surname);
+        printf("\n\t%s %s\n", tree->client.name, tree->client.surname);
+        flag =1;
     }
 
     /*goes to tree's children*/
@@ -207,7 +214,7 @@ int deepCopyClientFields(clientNode_l* dest, Client source){
     dest->client.id = source.id;
     strcpy(dest->client.rentDate, source.rentDate);
     strcpy(dest->client.rentHour, source.rentHour);
-    strcpy(dest->client.rentedCarLicense, source.rentedCarLicense);
+    dest->client.rentedCarLicense= source.rentedCarLicense;
     return 1;
 }
 

@@ -1,24 +1,22 @@
 #include "menu.h"
 #include <stdio.h>
-/*
-void menu(carList* carList , supplierList* supplierList, clientList* clientList){
-    int choose,carChoose,clientChoose,supplierChoose,exitChoose,threeGreatestChoose,carCapChoose, cap,man;
+
+void menu(carBST * carTREE , supplierBST * supplierBst, clientBST * clientBst){
+    int choose,carChoose,clientChoose,supplierChoose,exitChoose,threeGreatestChoose, cap,man;
     puts("Welcome to CarsOrganizer \n(BETA version)");
     puts("initializing data base \ncreating cars list.....\ndone!\ncreating suppliers list.....\ndone!\ncreating clients list.....\ndone!\n");
     while(1){
         puts("\nplease enter your choose:\n"
-             "      1.add or delete a Car\n"
-             "      2.add or delete a client\n"
-             "      3.add or delete a supplier\n"
+             "      1.Cars menu\n"
+             "      2.clients menu\n"
+             "      3.supplier menu\n"
              "      4.get how many cars there are with given engine velocity\n"
              "      5.get how many client's there are with car from given car year\n"
              "      6.get ID number of the top 3 suppliers\n"
-             "      7.inverse car list");
-#ifdef DAVIS
-        puts("      8.print all clients with given rent date\n"
-                 "      9.print all suppliers details");
-#endif
-        puts("      0.exit.\n"
+             "      7.average sum of deals with suppliers\n"
+             "      8.print all clients with given rent date\n"
+             "      9.print all suppliers details\n"
+             "      0.exit.\n"
              "your choose: ");
 
         fillFieldInt(&choose,1,1,1);
@@ -30,7 +28,7 @@ void menu(carList* carList , supplierList* supplierList, clientList* clientList)
                      "      3.delete all cars\n"
                      "      any other digit to return\n");
                 fillFieldInt(&carChoose,1,1,1);
-                carSwitch(carChoose,carList);
+                carSwitch(carChoose, carTREE);
                 break;
 
             case 2:
@@ -40,7 +38,7 @@ void menu(carList* carList , supplierList* supplierList, clientList* clientList)
                      "      3.delete all clients\n"
                      "      any other digit to return\n");
                 fillFieldInt(&clientChoose,1,1,1);
-                clientSwitch(clientChoose,clientList);
+                clientSwitch(clientChoose, clientBst);
                 break;
 
             case 3:
@@ -50,19 +48,11 @@ void menu(carList* carList , supplierList* supplierList, clientList* clientList)
                      "      3.delete all suppliers\n"
                      "      any other digit to return\n");
                 fillFieldInt(&supplierChoose,1,1,1);
-                supplierSwitch(supplierChoose,supplierList);
+                supplierSwitch(supplierChoose, supplierBst);
                 break;
 
             case 4:
-                puts("what kind of algorithm you wish to use?\n    1.iterative\n    2.recursive");
-                fillFieldInt(&carCapChoose,1,1,1);
-
-                if (carCapChoose==1){
-                    cap = carNumberWithGivenCapacity(&(carList->head));
-                }
-                if (carCapChoose ==2){
-                    cap = carNumberWithGivenCapacity_REC(&(carList->head), 0);
-                }
+               cap = carNumberWithGivenCapacity(carTREE->root,0);
                 if (cap != 0){
                     printf("there are %d cars with given capacity",cap );
                 } else
@@ -70,7 +60,7 @@ void menu(carList* carList , supplierList* supplierList, clientList* clientList)
                 break;
 
             case 5:
-                man = clientNumberWithGivenCarYear(carList->head,clientList->head, 0);
+                man = clientNumberWithGivenCarYear(carTREE->root, clientBst->root, 0);
                 if(man != 0){
                     printf("there are %d clients who rented a car in given manufacturing year ",man);
                 } else{
@@ -80,28 +70,18 @@ void menu(carList* carList , supplierList* supplierList, clientList* clientList)
 
                 break;
             case 6:
-                puts("what kind of algorithm you wish to use?\n    1.iterative\n    2.recursive");
-                fillFieldInt(&threeGreatestChoose,1,1,1);
-
-                if (threeGreatestChoose==1){
-                    threeGreatestSuppliers(supplierList->head);
-                }
-                if (threeGreatestChoose ==2){
-                    threeGreatestSupplier_rec(supplierList->head,NULL);
-                }
+              threeGreatestSuppliers(*supplierBst);
                 break;
             case 7:
-                inverseCarList(&(carList->head));
+                printf("average sum of deals with suppliers is %f: ",averageOfSupplierMoney(supplierBst->root,supplierBst->size));
                 break;
 
             case 8:
-                  if(!printClientCarsForGivenRentDate(clientBST->root, NULL)){
-                    puts("there are no clients who rented a car in this date...");
-                  }
+                  printClientCarsForGivenRentDate(clientBst->root);
                   break;
 
             case 9:
-                   printSuppliers(supplierList->head);
+                   printSuppliers(supplierBst->head);
                    break;
 
             case 0:
@@ -111,18 +91,18 @@ void menu(carList* carList , supplierList* supplierList, clientList* clientList)
                      "any other choose for return")   ;
                 fillFieldInt(&exitChoose,1,1,1);
                 if (exitChoose==1){
-                    deleteAllSuppliers(&(supplierList->head));
-                    FREE(supplierList->head);
-                    deleteAllClients(&clientList->head);
-                    FREE(clientList->head);
-                    deleteAllCars(&carList->head);
-                    FREE(carList->head);
+                    deleteAllSuppliers(&(supplierBst->head));
+                    FREE(supplierBst->head);
+                    deleteAllClients(&clientBst->head);
+                    FREE(clientBst->head);
+                    deleteAllCars(&carTREE->head);
+                    FREE(carTREE->head);
                     puts("checking for data base status....");
                     puts("cleaning cars list.....\ndone!");
                     puts("cleaning suppliers list.....\ndone!");
                     puts("cleaning clients list.....\ndone!");
                     puts("you good to go!\nByeBye");
-                    check_for_exit();   /*delete before compilation
+                    check_for_exit();   /*TODO delete before compilation*/
                     exit(0);}
                 else{break;}
             default:
@@ -130,28 +110,27 @@ void menu(carList* carList , supplierList* supplierList, clientList* clientList)
         }
     }
 }
-
-void carSwitch(int carChoose,carList* carList) {
+void carSwitch(int carChoose,carBST*  carTree) {
     switch (carChoose) {
         case 1:
-            if (addNewCar(&carList->head) == 1){
-                puts("car added to list!\n");
+            if (addNewCar(carTree) == 1){
+                puts("car added to tree!\n");
             }
             break;
         case 2:
-            if (!carList->head){
-                puts("car list is empty");
+            if (!carTree->root){
+                puts("car tree is empty");
                 break;
             }
-            if (deleteCar(&(carList->head),NULL) == 1){
-                puts("car deleted from list!\n");
+            if (deleteCar(carTree->root, 0) == 1){/*TODO what if license not in the list*/
+                puts("car deleted from the tree!\n");
             }
             else{
                 puts("car license not found");
             }
             break;
         case 3:
-            if (deleteAllCars(&(carList->head))){
+            if (deleteAllCars(carTree)){
                 puts("deleting.....\n");
                 puts("all cars deleted!");
             }
@@ -225,5 +204,3 @@ void supplierSwitch(int supplierChoose, supplierList * supplierList) {
             break;
     }
 }
-
-*/

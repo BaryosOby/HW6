@@ -22,7 +22,7 @@ carNode* appendCarToTree(carNode* tree, Car new_car){
 
     if(new_car.licenseNum == tree->car.licenseNum) {
         puts("License number already exists in Data Base.");
-        return NULL;
+        return tree;
     }
     if(new_car.licenseNum < tree->car.licenseNum) /* Go left*/
         tree->left = appendCarToTree(tree->left, new_car);
@@ -91,17 +91,18 @@ int addNewCar(carBST* tree) {
 }
 
 /*free allocated memory*/
-int freeCarFields(carNode* node){
+int freeCar(carNode* node){
     if(node) {
         FREE(node->car.manufacturer);
         FREE(node->car.color);
         FREE(node->car.model);
+        FREE(node);
     }
     return 1;
 }
 
 int deepCopyCarFields(carNode* tree,Car follower){
-    freeCarFields(tree);
+    freeCar(tree);
     tree->car.manufacturer = copyField(follower.manufacturer);
     tree->car.color = copyField(follower.color);
     tree->car.model = copyField(follower.model);
@@ -118,6 +119,7 @@ int deepCopyCarFields(carNode* tree,Car follower){
 
 
 /*delete carNode by given license number*/
+/*license parameter always starts as 0.*/
 carNode* deleteCar(carNode* tree, double license){
     carNode *temp, *follower, **followerAddr;
     double userInput = 0;
@@ -146,54 +148,52 @@ carNode* deleteCar(carNode* tree, double license){
         }
     }
 
-/* Option 1: tree is a leaf*/
-    if(!(tree->left) && !(tree->right)) {
-        freeCarFields(tree);
-        FREE(tree);
-        return NULL;
-    }
-/* Option 2: tree has only one child*/
-    else if(!(tree->left)) {
-        temp = tree->right;
-        freeCarFields(tree);
-        FREE(tree);
-        return temp;
-    }
-    else if(!(tree->right)) {
-        temp = tree->left;
-        freeCarFields(tree);
-        FREE(tree);
-        return temp;
-    }
-/* Option 3: tree has 2 children*/
     else {
-        follower = tree->right;
-        followerAddr = &(tree->right);
-        while(follower->left) {
-            followerAddr = &(follower->left);
-            follower = follower->left;
+
+/* Option 1: tree is a leaf*/
+        if (!(tree->left) && !(tree->right)) {
+            freeCar(tree);
+            return NULL;
         }
-        deepCopyCarFields(tree, follower->car);
-        *followerAddr = deleteCar(follower, follower->car.licenseNum);
+/* Option 2: tree has only one child*/
+        else if (!(tree->left)) {
+            temp = tree->right;
+            freeCar(tree);
+            return temp;
+        } else if (!(tree->right)) {
+            temp = tree->left;
+            freeCar(tree);
+            return temp;
+        }
+/* Option 3: tree has 2 children*/
+        else {
+            follower = tree->right;
+            followerAddr = &(tree->right);
+            while (follower->left) {
+                followerAddr = &(follower->left);
+                follower = follower->left;
+            }
+            deepCopyCarFields(tree, follower->car);
+            *followerAddr = deleteCar(follower, follower->car.licenseNum);
+        }
     }
     return tree;
 }
 
 /*free all the nodes from the tree. returns empty pointer*/
-int deleteAllNodes(carNode* tree){
+int deleteAllcarsNodes(carNode* tree){
     if(!tree){
         return 1;
     }
     /*free children first*/
-    deleteAllNodes(tree->left);
-    deleteAllNodes(tree->right);
-    freeCarFields(tree);
-    FREE(tree);
+    deleteAllcarsNodes(tree->left);
+    deleteAllcarsNodes(tree->right);
+    freeCar(tree);
     return 1;
 }
 int deleteAllCars(carBST* tree){
-    deleteAllNodes(tree->root);
-    tree->root =NULL;
+    deleteAllcarsNodes(tree->root);
+    tree->root = NULL;
     return 1;
 }
 

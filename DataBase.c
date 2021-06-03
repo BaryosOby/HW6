@@ -19,7 +19,6 @@ int getCarYearByLicense(carNode * tree ,double license){
 
 int clientNumberWithGivenCarYear(carNode * car_tree, clientNode * client_tree, int year) {
     int counter = 0, userYearChoice;
-    double license;
 
     if((!car_tree) || (!client_tree)){
         return 0;
@@ -33,11 +32,11 @@ int clientNumberWithGivenCarYear(carNode * car_tree, clientNode * client_tree, i
         userYearChoice = year;
     }
 
-    if(getCarYearByLicense(car_tree, license) == userYearChoice){
+    if(getCarYearByLicense(car_tree, client_tree->client.rentedCarLicense) == userYearChoice){
         counter++;
     }
 
-    return counter + clientNumberWithGivenCarYear(car_tree, client_tree->left, userYearChoice)  + clientNumberWithGivenCarYear(car_tree, client_tree->left, userYearChoice);
+    return counter + clientNumberWithGivenCarYear(car_tree, client_tree->left, userYearChoice) + clientNumberWithGivenCarYear(car_tree, client_tree->right, userYearChoice);
 }
 
 

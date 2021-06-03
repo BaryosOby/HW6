@@ -25,7 +25,7 @@ supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier){
 
     if(newSupplier.id == tree->supplier.id) {
         puts("ID already exists in Data Base.");
-        return NULL;
+        return tree;
     }
     if(newSupplier.id < tree->supplier.id) /* Go left*/
         tree->left = appendSupplierToTree(tree->left, newSupplier);
@@ -91,10 +91,14 @@ int deepCopySuppliersFields(supplierNode * tree,Supplier follower){
 }
 
 /*delete supplierNode by given id*/
+/*id parameter always starts as 0.*/
 supplierNode * deleteSupplier(supplierNode * tree, double id, supplierBST* bst){
     supplierNode *temp, *follower, **followerAddr;
     double userInput = 0;
 
+    if (!tree) {
+        return NULL;
+    }
     /*gets input from user*/
     if(id == 0){
         puts("please enter id for the supplier you wish to delete:");
@@ -103,14 +107,11 @@ supplierNode * deleteSupplier(supplierNode * tree, double id, supplierBST* bst){
     else{
         userInput = id;
     }
-    if (!tree) {
-        return NULL;
-    }
 
     /* searching wanted supplier in tree's children*/
     if(tree->supplier.id != userInput) {
         /* Go left*/
-        if( id < (tree->supplier.id)) {
+        if( userInput < (tree->supplier.id)) {
             tree->left = deleteSupplier(tree->left, userInput, bst);
         }
             /* Go right*/
@@ -120,38 +121,39 @@ supplierNode * deleteSupplier(supplierNode * tree, double id, supplierBST* bst){
 
     }
 
+    else {
 
 /* Option 1: tree is a leaf*/
-    if(!(tree->left) && !(tree->right)) {
-        freeSupplierFields(tree);
-        FREE(tree);
-        return NULL;
-    }
-/* Option 2: tree has only one child*/
-    else if(!(tree->left)) {
-        temp = tree->right;
-        freeSupplierFields(tree);
-        FREE(tree);
-        return temp;
-    }
-    else if(!(tree->right)) {
-        temp = tree->left;
-        freeSupplierFields(tree);
-        FREE(tree);
-        return temp;
-    }
-/* Option 3: tree has 2 children*/
-    else {
-        follower = tree->right;
-        followerAddr = &(tree->right);
-        while(follower->left) {
-            followerAddr = &(follower->left);
-            follower = follower->left;
+        if (!(tree->left) && !(tree->right)) {
+            freeSupplierFields(tree);
+            FREE(tree);
+            return NULL;
         }
-        deepCopySuppliersFields(tree, follower->supplier);
-        *followerAddr = deleteSupplier(follower, follower->supplier.id,bst);
+/* Option 2: tree has only one child*/
+        else if (!(tree->left)) {
+            temp = tree->right;
+            freeSupplierFields(tree);
+            FREE(tree);
+            return temp;
+        } else if (!(tree->right)) {
+            temp = tree->left;
+            freeSupplierFields(tree);
+            FREE(tree);
+            return temp;
+        }
+/* Option 3: tree has 2 children*/
+        else {
+            follower = tree->right;
+            followerAddr = &(tree->right);
+            while (follower->left) {
+                followerAddr = &(follower->left);
+                follower = follower->left;
+            }
+            deepCopySuppliersFields(tree, follower->supplier);
+            *followerAddr = deleteSupplier(follower, follower->supplier.id, bst);
+        }
     }
-    bst->size -=1;
+    bst->size -= 1;
     return tree;
 }
 

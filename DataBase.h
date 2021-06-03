@@ -6,7 +6,7 @@
 #include "FillField.h"
 
 /*returns the number of clients that rents a car with a given manufacturing year*/
-int clientNumberWithGivenCarYear(carNode * car_head, clientNode * client_head, int year);
+int clientNumberWithGivenCarYear(carNode * carRoot, clientNode * clientRoot, int year);
 
 
 #endif
