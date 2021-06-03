@@ -2,8 +2,6 @@
 #include <string.h>
 #include "FillField.h"
 
-
-
 /*creates new car binary search tree pointer*/
 carBST* createCarTree(){
     carBST* newTree;
@@ -22,6 +20,10 @@ carNode* appendCarToTree(carNode* tree, Car new_car){
         return newNode;
     }
 
+    if(new_car.licenseNum == tree->car.licenseNum) {
+        puts("License number already exists in Data Base.");
+        return NULL;
+    }
     if(new_car.licenseNum < tree->car.licenseNum) /* Go left*/
         tree->left = appendCarToTree(tree->left, new_car);
     else{ /* Go right*/
@@ -89,24 +91,34 @@ int addNewCar(carBST* tree) {
 }
 
 /*free allocated memory*/
-int freeCar(carNode* node){
+int freeCarFields(carNode* node){
     if(node) {
         FREE(node->car.manufacturer);
         FREE(node->car.color);
         FREE(node->car.model);
-        FREE(node);
     }
     return 1;
 }
 
-Car * copyAndFree(car* copyFrom ){
-    char* temp;
-    temp= (char*)checked_malloc(strlen(copyFrom));
-    strcpy(temp,copyFrom);
-    freeCar(copyFrom);
+int deepCopyCarFields(carNode* tree,Car follower){
+    freeCarFields(tree);
+    tree->car.manufacturer = copyField(follower.manufacturer);
+    tree->car.color = copyField(follower.color);
+    tree->car.model = copyField(follower.model);
+    tree->car.licenseNum = follower.licenseNum;
+    tree->car.manufactorYear = follower.manufactorYear;
+    tree->car.velocity = follower.velocity;
+    tree->car.onRoadSince = follower.onRoadSince;
+    tree->car.currentPrice = follower.currentPrice;
+    tree->car.priceFromSupplier = follower.priceFromSupplier;
+    strcpy(tree->car.chassisNum, follower.chassisNum);
+
+    return 1;
 }
+
+
 /*delete carNode by given license number*/
-carNode* deleteCar(carNode* tree, double license, int flag){
+carNode* deleteCar(carNode* tree, double license){
     carNode *temp, *follower, **followerAddr;
     double userInput = 0;
 
@@ -132,30 +144,25 @@ carNode* deleteCar(carNode* tree, double license, int flag){
         else {
             tree->right = deleteCar(tree->right, userInput);
         }
-
     }
-
 
 /* Option 1: tree is a leaf*/
     if(!(tree->left) && !(tree->right)) {
-        if (!flag){
-            freeCar(tree);}
-        else FREE(tree);
-
+        freeCarFields(tree);
+        FREE(tree);
         return NULL;
     }
 /* Option 2: tree has only one child*/
     else if(!(tree->left)) {
         temp = tree->right;
-        if (!flag){
-            freeCar(tree);}
-        else FREE(tree);
-
+        freeCarFields(tree);
+        FREE(tree);
         return temp;
     }
     else if(!(tree->right)) {
         temp = tree->left;
-        freeCar(tree);
+        freeCarFields(tree);
+        FREE(tree);
         return temp;
     }
 /* Option 3: tree has 2 children*/
@@ -166,28 +173,33 @@ carNode* deleteCar(carNode* tree, double license, int flag){
             followerAddr = &(follower->left);
             follower = follower->left;
         }
-
-        tree->car = follower->car;
-        strcpy(tree->car.manufacturer,
-        *followerAddr = deleteCar(follower, follower->car.licenseNum,1);
+        deepCopyCarFields(tree, follower->car);
+        *followerAddr = deleteCar(follower, follower->car.licenseNum);
     }
     return tree;
 }
 
-/*free all the nodes from th tree. returns empty pointer*/
-int deleteAllCars(carNode* tree){
+/*free all the nodes from the tree. returns empty pointer*/
+int deleteAllNodes(carNode* tree){
     if(!tree){
         return 1;
     }
     /*free children first*/
-    deleteAllCars(tree->left);
-    deleteAllCars(tree->right);
-
-    freeCar(tree);
+    deleteAllNodes(tree->left);
+    deleteAllNodes(tree->right);
+    freeCarFields(tree);
+    FREE(tree);
+    return 1;
+}
+int deleteAllCars(carBST* tree){
+    deleteAllNodes(tree->root);
+    tree->root =NULL;
     return 1;
 }
 
+
 /*returns the number of cars in the list with a given capacity*/
+/*cap parameter always starts as 0.*/
 int carNumberWithGivenCapacity(carNode* root, int cap){
     int userInput, res = 0;
 

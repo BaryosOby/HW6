@@ -20,27 +20,23 @@ typedef struct {
     int size;
 } supplierBST;
 
+/*creates empty supplierNode*/
+supplierBST * createSupplierTree();
 
-/*prints every supllier's details in the list*/
-int printSuppliers(supplierNode* head);
+int addNewSupplier(supplierBST * tree);
 
+/*help function to call in addNewSupplier*/
+supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier);
 
-/*creates new list of suppliers*/
-int createSupplierList(supplierList * list);
+supplierNode * deleteSupplier(supplierNode * tree, double id, supplierBST* bst);
 
-/*adds new supplier to the suppliers list.*/
-int addNewSupplier(supplierNode ** head);
+int deleteAllSuppliers(supplierBST * tree);
 
-int appendSupplierToList(supplierNode ** head, Supplier newSupplier);
+double averageOfSupplierMoney(supplierNode* tree ,int n);
 
-/*return array containing the id of the 3 suppliers with the highest pastTransactionsSum*/
 int threeGreatestSuppliers(supplierBST tree);
 
-/*gets supplier's name and deletes it from the list.return 1 if succeed else return 0*/
-int deleteSupplier(supplierNode ** head, double id);
-
-/*deleting all the suppliers from the suppliers list. return 1 if succeed else return */
-int deleteAllSuppliers(supplierNode ** head);
+void printSuppliers(supplierNode* tree);
 
 
 #endif

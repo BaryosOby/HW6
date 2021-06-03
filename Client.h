@@ -22,6 +22,15 @@ typedef struct {
     clientNode* root;
 } clientBTS;
 
+typedef struct clientNode_l{
+    Client client;
+    struct clientNode_l* next;
+}clientNode_l;
+
+typedef struct clientList{
+    clientNode_l* head;
+}clientList;
+
 
 /*creates empty clientNode*/
 clientBTS * createClientTree();
@@ -39,8 +48,11 @@ clientNode * deleteClient(clientNode * tree, double id);
 /*deletes all the clients from the list. returns 1 if succeed, 0 if failed.*/
 int deleteAllClients(clientNode * tree);
 
+void printClientCarsForGivenRentDate(clientNode * tree);
 
-void printClientCarsForGivenRentDate(clientNode * head, const char* date,int flag);
+int clearClientsList(clientNode_l* head);
+
+clientList* findClient(clientNode* tree);
 
 
 #endif
