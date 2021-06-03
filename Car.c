@@ -123,6 +123,9 @@ int deepCopyCarFields(carNode* tree,Car follower){
 carNode* deleteCar(carNode* tree, double license){
     carNode *temp, *follower, **followerAddr;
     double userInput = 0;
+    if (!tree) {
+        return NULL;
+    }
 
     /*gets input from user*/
     if(license == 0){
@@ -131,9 +134,6 @@ carNode* deleteCar(carNode* tree, double license){
     }
     else{
         userInput = license;
-    }
-    if (!tree) {
-        return NULL;
     }
 
     /* searching wanted car in tree's children*/

@@ -29,13 +29,11 @@ appendSupplierToList(&supplierList.head, s3);
 c_tree->root = appendClientToTree(c_tree->root, cl1);\
 c_tree->root = appendClientToTree(c_tree->root, cl2);\
 c_tree->root = appendClientToTree(c_tree->root, cl3);
-/*
-void menu(carList* carList , supplierList* supplierList, clientList* clientList);
-*/
+void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree);
 
 /*helpers for menu*/
-void carSwitch(int carChoose,carBST * carTree);
-void clientSwitch(int clientChoose, clientBST * clientTree);
-void supplierSwitch(int supplierChoose,supplierBST * supplierTree);
+void carSwitch(int carChoose,carBST * carTree,int  temp);
+void clientSwitch(int clientChoose, clientBST * clientTree,carNode* carRoot ,int  temp);
+void supplierSwitch(int supplierChoose,supplierBST * supplierTree,int  temp);
 
 #endif

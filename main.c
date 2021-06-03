@@ -2,28 +2,30 @@
 #include "Car.h"
 
 int main(){
-    clientBST *c_tree;
-    carBST * car_tree;
-    supplierBST * sup_tree;
+    clientBST *clientTree;
+    carBST * carTree;
+    supplierBST * supplierTree;
 
-    car_tree = createCarTree();
-    c_tree = createClientTree();
-    sup_tree = createSupplierTree();
+    carTree = createCarTree();
+    clientTree = createClientTree();
+    supplierTree = createSupplierTree();
 
-    addNewSupplier(sup_tree);
-    addNewSupplier(sup_tree);
-    sup_tree->root=deleteSupplier(sup_tree->root,0,sup_tree);
-    deleteAllSuppliers(sup_tree);
 
-   /* addNewClient(c_tree);
-    addNewClient(c_tree);
-    c_tree->root = deleteClient(c_tree->root,0);
-    deleteAllClients(c_tree);
+    menu(carTree,supplierTree,clientTree);
+    /*addNewSupplier(supplierTree);
+    addNewSupplier(supplierTree);
+    supplierTree->root=deleteSupplier(supplierTree->root,0,supplierTree);
+    deleteAllSuppliers(supplierTree);
 
-    addNewCar(car_tree);
-    addNewCar(car_tree);
-    car_tree->root = deleteCar(car_tree->root,0);
-    deleteAllCars(car_tree);*/
+    addNewClient(clientTree);
+    addNewClient(clientTree);
+    clientTree->root = deleteClient(clientTree->root,0);
+    deleteAllClients(clientTree);
+
+    addNewCar(carTree);
+    addNewCar(carTree);
+    carTree->root = deleteCar(carTree->root,0);
+    deleteAllCars(carTree);*/
 
 
 
