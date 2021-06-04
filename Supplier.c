@@ -73,15 +73,14 @@ int addNewSupplier(supplierBST* tree){
 }
 
 /*free allocated memory*/
-int freeSupplierFields(supplierNode * node){
-    if(node) {
-        FREE(node->supplier.name);
-    }
+int freeSupplier(supplierNode * node){
+    FREE(node->supplier.name);
+    FREE(node);
     return 1;
 }
 
 int deepCopySuppliersFields(supplierNode * tree,Supplier follower){
-    freeSupplierFields(tree);
+    freeSupplier(tree);
     tree->supplier.name = copyField(follower.name);
     tree->supplier.pastTransactionsSum = follower.pastTransactionsSum;
     tree->supplier.pastTransactionsNumber= follower.pastTransactionsSum;
@@ -125,20 +124,20 @@ supplierNode * deleteSupplier(supplierNode * tree, double id, supplierBST* bst){
 
 /* Option 1: tree is a leaf*/
         if (!(tree->left) && !(tree->right)) {
-            freeSupplierFields(tree);
-            FREE(tree);
+            freeSupplier(tree);
+            bst->size -= 1;
             return NULL;
         }
 /* Option 2: tree has only one child*/
         else if (!(tree->left)) {
             temp = tree->right;
-            freeSupplierFields(tree);
-            FREE(tree);
+            freeSupplier(tree);
+            bst->size -= 1;
             return temp;
         } else if (!(tree->right)) {
             temp = tree->left;
-            freeSupplierFields(tree);
-            FREE(tree);
+            freeSupplier(tree);
+            bst->size -= 1;
             return temp;
         }
 /* Option 3: tree has 2 children*/
@@ -153,7 +152,7 @@ supplierNode * deleteSupplier(supplierNode * tree, double id, supplierBST* bst){
             *followerAddr = deleteSupplier(follower, follower->supplier.id, bst);
         }
     }
-    bst->size -= 1;
+
     return tree;
 }
 
@@ -165,8 +164,7 @@ int deleteAllNodesSupplier(supplierNode * tree){
     /*free children first*/
     deleteAllNodesSupplier(tree->left);
     deleteAllNodesSupplier(tree->right);
-    freeSupplierFields(tree);
-    FREE(tree);
+    freeSupplier(tree);
     return 1;
 }
 int deleteAllSuppliers(supplierBST * tree){

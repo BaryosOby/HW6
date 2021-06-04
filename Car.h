@@ -22,6 +22,7 @@ typedef struct carNode_t{
 
 typedef struct {
     carNode* root;
+    int size;
 } carBST;
 
 
@@ -37,7 +38,7 @@ int addNewCar(carBST* tree);
 carNode* appendCarToTree(carNode* tree, Car new_car);
 
 /*gets license number of a car and delete it from the list. returns 1 if succeed, 0 if failed.*/
-carNode* deleteCar(carNode* tree, double license);
+carNode* deleteCar(carNode* tree, double license,carBST* bst);
 
 /*deletes all the cars from the list. returns 1 if succeed, 0 if failed.*/
 int deleteAllCars(carBST* tree);

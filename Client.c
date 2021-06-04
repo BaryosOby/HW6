@@ -7,6 +7,7 @@ clientBST* createClientTree(){
     clientBST * newTree;
     newTree = ALLOC(clientBST , 1);
     newTree->root = NULL;
+    newTree->size = 0;
     return newTree;
 }
 
@@ -75,7 +76,7 @@ int addNewClient(clientBST* tree){
 
     /*creates new node and puts it in the list*/
     tree->root = appendClientToTree(tree->root, newClient);
-
+    tree->size+=1;
     return 1;
 }
 
@@ -90,7 +91,7 @@ int freeClient(clientNode* node){
 
 /*delete clientNode by given id*/
 /*id parameter*/
-clientNode * deleteClient(clientNode * tree, double id){
+clientNode * deleteClient(clientNode * tree, double id, clientBST* bst){
     clientNode *temp, *follower, **followerAddr;
     double userInput = 0;
     if (!tree) {
@@ -111,28 +112,31 @@ clientNode * deleteClient(clientNode * tree, double id){
     if(tree->client.id != userInput) {
         /* Go left*/
         if( userInput < (tree->client.id)) {
-            tree->left = deleteClient(tree->left, userInput);
+            tree->left = deleteClient(tree->left, userInput, bst);
         }
             /* Go right*/
         else {
-            tree->right = deleteClient(tree->right, userInput);
+            tree->right = deleteClient(tree->right, userInput, bst);
         }
 
     } else{
 /* Option 1: tree is a leaf*/
     if(!(tree->left) && !(tree->right)) {
         freeClient(tree);
+        bst->size-=1;
         return NULL;
     }
 /* Option 2: tree has only one child*/
     else if(!(tree->left)) {
         temp = tree->right;
         freeClient(tree);
+        bst->size-=1;
         return temp;
     }
     else if(!(tree->right)) {
         temp = tree->left;
         freeClient(tree);
+        bst->size-=1;
         return temp;
     }
 /* Option 3: tree has 2 children*/
@@ -144,9 +148,10 @@ clientNode * deleteClient(clientNode * tree, double id){
             follower = follower->left;
         }
         tree->client = follower->client;
-        *followerAddr = deleteClient(follower, follower->client.id);
+        *followerAddr = deleteClient(follower, follower->client.id, bst);
         }
     }
+    puts("supplier deleted from the data base");
     return tree;
 }
 
@@ -164,6 +169,7 @@ int deleteAllclientsNodes(clientNode * tree){
 int deleteAllClients(clientBST * tree){
     deleteAllclientsNodes(tree->root);
     tree->root = NULL;
+    tree->size = 0;
     return 1;
 }
 

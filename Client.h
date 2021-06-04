@@ -20,6 +20,7 @@ typedef struct clientNode_t{
 
 typedef struct {
     clientNode* root;
+    int size;
 } clientBST;
 
 typedef struct clientNode_l{
@@ -43,7 +44,7 @@ clientNode * appendClientToTree(clientNode * tree, Client newClient);
 
 
 /*gets id number of a client and delete it from the list. returns the tree's root.*/
-clientNode * deleteClient(clientNode * tree, double id);
+clientNode * deleteClient(clientNode * tree, double id, clientBST* bst);
 
 /*deletes all the clients from the list. returns 1.*/
 int deleteAllClients(clientBST * tree);

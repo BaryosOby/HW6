@@ -116,11 +116,9 @@ int deepCopyCarFields(carNode* tree,Car follower){
 
     return 1;
 }
-
-
 /*delete carNode by given license number*/
 /*license parameter always starts as 0.*/
-carNode* deleteCar(carNode* tree, double license){
+carNode* deleteCar(carNode* tree, double license,carBST* bst){
     carNode *temp, *follower, **followerAddr;
     double userInput = 0;
     if (!tree) {
@@ -135,34 +133,35 @@ carNode* deleteCar(carNode* tree, double license){
     else{
         userInput = license;
     }
-
     /* searching wanted car in tree's children*/
     if(tree->car.licenseNum != userInput) {
         /* Go left*/
         if( license < (tree->car.licenseNum)) {
-            tree->left = deleteCar(tree->left, userInput);
+            tree->left = deleteCar(tree->left, userInput,bst);
         }
         /* Go right*/
         else {
-            tree->right = deleteCar(tree->right, userInput);
+            tree->right = deleteCar(tree->right, userInput,bst);
         }
     }
-
     else {
 
 /* Option 1: tree is a leaf*/
         if (!(tree->left) && !(tree->right)) {
             freeCar(tree);
+            bst->size -= 1;
             return NULL;
         }
 /* Option 2: tree has only one child*/
         else if (!(tree->left)) {
             temp = tree->right;
             freeCar(tree);
+            bst->size -= 1;
             return temp;
         } else if (!(tree->right)) {
             temp = tree->left;
             freeCar(tree);
+            bst->size -= 1;
             return temp;
         }
 /* Option 3: tree has 2 children*/
@@ -174,9 +173,10 @@ carNode* deleteCar(carNode* tree, double license){
                 follower = follower->left;
             }
             deepCopyCarFields(tree, follower->car);
-            *followerAddr = deleteCar(follower, follower->car.licenseNum);
+            *followerAddr = deleteCar(follower, follower->car.licenseNum,bst);
         }
     }
+    puts("supplier deleted from the data base");
     return tree;
 }
 
@@ -194,6 +194,7 @@ int deleteAllcarsNodes(carNode* tree){
 int deleteAllCars(carBST* tree){
     deleteAllcarsNodes(tree->root);
     tree->root = NULL;
+    tree->size = 0;
     return 1;
 }
 

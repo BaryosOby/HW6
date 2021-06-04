@@ -59,6 +59,9 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
                     deleteAllSuppliers(supplierTree);
                     deleteAllClients(clientTree);
                     deleteAllCars(carTree);
+                    FREE(supplierTree);
+                    FREE(clientTree);
+                    FREE(carTree);
                     puts("checking for data base status....");
                     puts("cleaning cars list.....\ndone!");
                     puts("cleaning suppliers list.....\ndone!");
@@ -84,7 +87,14 @@ void carSwitch(int carChoose,carBST*  carTree,int temp) {
                 puts("car tree is empty");
                 break;
             }
-            carTree->root=deleteCar(carTree->root, 0);      /*TODO what if car didnt found or list is empty*/
+            temp =carTree->size;
+            carTree->root=deleteCar(carTree->root, 0,carTree);
+            if (carTree->size >temp) {
+                puts("car deleted from data base");
+            }
+            else puts("couldn't find license num ");
+            printf("%d",carTree->size);/*TODO delete*/
+            temp =-1;
             break;
         case 3:
             temp = carNumberWithGivenCapacity(carTree->root,0);
@@ -125,9 +135,15 @@ void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot ,int t
                     puts("car tree is empty");
                     break;
                 }
-                clientTree->root = deleteClient(clientTree->root,
-                                                0);      /*TODO what if car didnt found or list is empty*/
-                break;
+                    temp =clientTree->size;
+                    clientTree->root=deleteClient(clientTree->root, 0,clientTree);
+                    if (clientTree->size >temp) {
+                        puts("client deleted from data base");
+                    }
+                    else puts("couldn't find id ");
+                    printf("%d",clientTree->size);/*TODO delete*/
+                    temp =-1;
+                    break;
             case 3:
                 puts("TODO!!!");
                 break;
@@ -174,7 +190,14 @@ void supplierSwitch(int supplierChoose, supplierBST* supplierTree,int temp){
                 puts("supplier tree is empty");
                 break;
             }
-            supplierTree->root = deleteSupplier(supplierTree->root,0,supplierTree);      /*TODO what if supplier didnt found or list is empty*/
+            temp =supplierTree->size;
+            supplierTree->root=deleteSupplier(supplierTree->root, 0,supplierTree);
+            if (supplierTree->size < temp) {
+                puts("supplier deleted from data base");
+            }
+            else puts("couldn't find supplier's id ");
+            printf("%d",supplierTree->size);/*TODO delete*/
+            temp =-1;
             break;
         case 3:
             threeGreatestSuppliers(*supplierTree);
@@ -183,6 +206,9 @@ void supplierSwitch(int supplierChoose, supplierBST* supplierTree,int temp){
             printf("average sum of deals with suppliers is %f: ",averageOfSupplierMoney(supplierTree->root,supplierTree->size));
             break;
         case 5:
+            if (!supplierTree->root){
+                puts("supplier tree is empty");
+            }
             printSuppliers(supplierTree->root);
             break;
         case 0:
