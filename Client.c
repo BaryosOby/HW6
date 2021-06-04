@@ -18,6 +18,7 @@ clientNode * appendClientToTree(clientNode* tree, Client newClient){
         newNode = ALLOC(clientNode ,1);
         newNode->client = newClient;
         newNode->left = newNode->right = NULL;
+        puts("client added to the data base.");
         return newNode;
     }
 
@@ -151,7 +152,6 @@ clientNode * deleteClient(clientNode * tree, double id, clientBST* bst){
         *followerAddr = deleteClient(follower, follower->client.id, bst);
         }
     }
-    puts("supplier deleted from the data base");
     return tree;
 }
 
@@ -290,7 +290,6 @@ int findClientByRentDate(clientNode* tree, const char* date, clientNode_l** head
 
 /*TODO free list in menu*/
 clientList* findClient(clientNode* tree){
-
     clientList *clients;
     int userChoice;
     double idInput;
@@ -343,7 +342,19 @@ int clearClientsList(clientNode_l* head){
     return 1;
 }
 
-
+void printClientList(clientList* list){
+    clientNode_l * temp;
+    temp=list->head;
+    if (!temp){
+        puts("client didn't found");
+        return;
+    }
+    while (temp){
+        printf("client name %s",temp->client.name);
+        temp=temp->next;
+    }
+    /*clearClientsList(list->head);*/
+}
 
 
 

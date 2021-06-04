@@ -17,6 +17,7 @@ carNode* appendCarToTree(carNode* tree, Car new_car){
         newNode = ALLOC(carNode ,1);
         newNode->car = new_car;
         newNode->left = newNode->right = NULL;
+        puts("Car added to tree!");
         return newNode;
     }
 
@@ -176,7 +177,6 @@ carNode* deleteCar(carNode* tree, double license,carBST* bst){
             *followerAddr = deleteCar(follower, follower->car.licenseNum,bst);
         }
     }
-    puts("supplier deleted from the data base");
     return tree;
 }
 

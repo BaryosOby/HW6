@@ -33,7 +33,7 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
 
 /*helpers for menu*/
 void carSwitch(int carChoose,carBST * carTree,int  temp);
-void clientSwitch(int clientChoose, clientBST * clientTree,carNode* carRoot ,int  temp);
+void clientSwitch(int clientChoose, clientBST * clientTree,carNode* carRoot ,int  temp,clientList * found);
 void supplierSwitch(int supplierChoose,supplierBST * supplierTree,int  temp);
 
 #endif

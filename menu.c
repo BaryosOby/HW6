@@ -3,6 +3,7 @@
 
 void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree){
     int choose,carChoose,clientChoose,supplierChoose,exitChoose,threeGreatestChoose,temp;
+    clientList * found;
     puts("Welcome to CarsOrganizer \n(BETA version)");
     puts("initializing data base \ncreating cars list.....\ndone!\ncreating suppliers list.....\ndone!\ncreating clients list.....\ndone!\n");
     while(1){
@@ -35,7 +36,7 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
                      "      0.delete all clients\n"
                      "      any other digit to return\n");
                 fillFieldInt(&clientChoose,1,1,1);
-                clientSwitch(clientChoose, clientTree,carTree->root,temp);
+                clientSwitch(clientChoose, clientTree,carTree->root,temp,found);
                 break;
 
             case 3:
@@ -78,9 +79,7 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
 void carSwitch(int carChoose,carBST*  carTree,int temp) {
     switch (carChoose) {
         case 1:
-            if (addNewCar(carTree) == 1){
-                puts("car added to tree!\n");
-            }
+            addNewCar(carTree);
             break;
         case 2:
             if (!carTree->root){
@@ -93,7 +92,6 @@ void carSwitch(int carChoose,carBST*  carTree,int temp) {
                 puts("car deleted from data base");
             }
             else puts("couldn't find license num ");
-            printf("%d",carTree->size);/*TODO delete*/
             temp =-1;
             break;
         case 3:
@@ -123,12 +121,10 @@ void carSwitch(int carChoose,carBST*  carTree,int temp) {
 }
 
 
-void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot ,int temp) {
+void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot ,int temp,clientList*  found) {
     switch (clientChoose) {
             case 1:
-                if (addNewClient(clientTree) == 1) {
-                    puts("client added to tree!\n");
-                }
+                addNewClient(clientTree);
                 break;
             case 2:
                 if (!clientTree->root) {
@@ -141,11 +137,11 @@ void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot ,int t
                         puts("client deleted from data base");
                     }
                     else puts("couldn't find id ");
-                    printf("%d",clientTree->size);/*TODO delete*/
                     temp =-1;
                     break;
             case 3:
-                puts("TODO!!!");
+                found=findClient(clientTree->root);
+                printClientList(found);
                 break;
             case 4:
                 printClientCarsForGivenRentDate(clientTree->root);
@@ -181,9 +177,7 @@ void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot ,int t
 void supplierSwitch(int supplierChoose, supplierBST* supplierTree,int temp){
     switch (supplierChoose) {
         case 1:
-            if (addNewSupplier(supplierTree) == 1) {
-                puts("supplier added to tree!\n");
-            }
+            addNewSupplier(supplierTree);
             break;
         case 2:
             if (!supplierTree->root) {
@@ -196,7 +190,6 @@ void supplierSwitch(int supplierChoose, supplierBST* supplierTree,int temp){
                 puts("supplier deleted from data base");
             }
             else puts("couldn't find supplier's id ");
-            printf("%d",supplierTree->size);/*TODO delete*/
             temp =-1;
             break;
         case 3:

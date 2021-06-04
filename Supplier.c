@@ -20,6 +20,7 @@ supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier){
         newNode = ALLOC(supplierNode ,1);
         newNode->supplier = newSupplier;
         newNode->left = newNode->right = NULL;
+        puts("supplier added to Data Base.");
         return newNode;
     }
 
@@ -152,7 +153,6 @@ supplierNode * deleteSupplier(supplierNode * tree, double id, supplierBST* bst){
             *followerAddr = deleteSupplier(follower, follower->supplier.id, bst);
         }
     }
-
     return tree;
 }
 
@@ -215,7 +215,7 @@ int threeGreatestSuppliers(supplierBST tree){
     addToGreatest(greatest,tree.root);
     puts("three greatest suppliers are:");
     for(i = 0; i < 3; i++){
-        printf("%d:  %f\n",i+1,greatest[i].pastTransactionsSum);}
+        printf("%d:  %.0f\n",i+1,greatest[i].id);}
     return 1;
 }
 

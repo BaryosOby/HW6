@@ -54,6 +54,6 @@ void printClientCarsForGivenRentDate(clientNode * tree);
 int clearClientsList(clientNode_l* head);
 
 clientList* findClient(clientNode* tree);
-
+void printClientList(clientList* list);
 
 #endif
