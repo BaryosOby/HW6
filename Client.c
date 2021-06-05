@@ -3,6 +3,7 @@
 #include "FillField.h"
 #include <stdio.h>
 
+/*allocating new binary search tree pointer. sets values to 0.*/
 clientBST* createClientTree(){
     clientBST * newTree;
     newTree = ALLOC(clientBST , 1);
@@ -11,10 +12,11 @@ clientBST* createClientTree(){
     return newTree;
 }
 
-/*help function to call in addNewClient. orders tree by ids*/
+/*help function to call in addNewClient. orders tree by IDs*/
 clientNode * appendClientToTree(clientNode* tree, Client newClient,clientBST* clientBst){
     clientNode * newNode;
     if(!tree){
+        /*allocating new node. increasing size.*/
         newNode = ALLOC(clientNode ,1);
         newNode->client = newClient;
         newNode->left = newNode->right = NULL;
@@ -23,6 +25,7 @@ clientNode * appendClientToTree(clientNode* tree, Client newClient,clientBST* cl
         return newNode;
     }
 
+    /*prevent ID duplication*/
     if(newClient.id == tree->client.id) {
         puts("ID already exists in Data Base.");
         return tree;
@@ -89,9 +92,21 @@ int freeClient(clientNode* node){
     return 1;
 }
 
+/*copying data to destination node.
+ * allocating new memory for dynamic allocated data copying.*/
+int deepCopyClientFields_tree(clientNode* dest, Client source){
+    dest->client.name = copyField(source.name);
+    dest->client.surname = copyField(source.surname);
+    dest->client.priceForDay = source.priceForDay;
+    dest->client.id = source.id;
+    strcpy(dest->client.rentDate, source.rentDate);
+    strcpy(dest->client.rentHour, source.rentHour);
+    dest->client.rentedCarLicense= source.rentedCarLicense;
+    return 1;
+}
 
 /*delete clientNode by given id*/
-/*id parameter*/
+/*id parameter always starts as 0.*/
 clientNode * deleteClient(clientNode * tree, double id, clientBST* bst){
     clientNode *temp, *follower, **followerAddr;
     double userInput = 0;
@@ -148,33 +163,37 @@ clientNode * deleteClient(clientNode * tree, double id, clientBST* bst){
             followerAddr = &(follower->left);
             follower = follower->left;
         }
-        tree->client = follower->client;
+            deepCopyClientFields_tree(tree, follower->client);
         *followerAddr = deleteClient(follower, follower->client.id, bst);
         }
     }
     return tree;
 }
 
-/*free all the nodes from the tree. returns empty pointer*/
-int deleteAllclientsNodes(clientNode * tree){
+/*help function for deleteAllClients.
+ * free all the nodes from the tree.*/
+int deleteAllClientsNodes(clientNode * tree){
     if(!tree){
         return 1;
     }
     /*free children first*/
-    deleteAllclientsNodes(tree->left);
-    deleteAllclientsNodes(tree->right);
+    deleteAllClientsNodes(tree->left);
+    deleteAllClientsNodes(tree->right);
     freeClient(tree);
     return 1;
 }
+
+/*clears all tree nodes, sets values to 0.*/
 int deleteAllClients(clientBST * tree){
-    deleteAllclientsNodes(tree->root);
+    deleteAllClientsNodes(tree->root);
     tree->root = NULL;
     tree->size = 0;
     return 1;
 }
 
 
-/*recursive function. every call it compares client's rent date and prints it's name if true.*/
+/*recursive function. every call it compares client's rent date and prints it's name if true.
+ * returns flag to indicate if any client found.*/
 int printClientCarsForGivenRentDate_rec(clientNode* tree, char* userInput){
     int flag = 0;
 
@@ -213,7 +232,11 @@ void printClientCarsForGivenRentDate(clientNode * tree) {
     }
 }
 
-int deepCopyClientFields(clientNode_l* dest, Client source){
+
+/*---------------------findClient functions---------------------*/
+
+/*copying data to new node.*/
+int deepCopyClientFields_listNode(clientNode_l* dest, Client source){
     dest->client.name = copyField(source.name);
     dest->client.surname = copyField(source.surname);
     dest->client.priceForDay = source.priceForDay;
@@ -224,15 +247,15 @@ int deepCopyClientFields(clientNode_l* dest, Client source){
     return 1;
 }
 
-/*---------------------findClient functions---------------------*/
-
+/*creates new list node.*/
 clientNode_l *createClientNode_l(Client client){
     clientNode_l * new = ALLOC(clientNode_l,1);
     new->next = NULL;
-    deepCopyClientFields(new, client);
+    deepCopyClientFields_listNode(new, client);
     return new;
 }
 
+/*finds a client by binary search for given id.*/
 int findClientByID(clientNode* tree, double id, clientNode_l** head){
 
     if(!tree){
@@ -248,6 +271,7 @@ int findClientByID(clientNode* tree, double id, clientNode_l** head){
     return findClientByID(tree->right , id, head);
 }
 
+/*insert a node in linked list.*/
 int insertNewNode(clientNode_l** head, Client client){
     clientNode_l *newNode = NULL, *curr;
 
@@ -273,7 +297,7 @@ int insertNewNode(clientNode_l** head, Client client){
     return 1;
 }
 
-
+/*finds client and insert them to a linked list.*/
 int findClientByRentDate(clientNode* tree, const char* date, clientNode_l** head){
     if(!tree){
         return 0;
@@ -286,6 +310,8 @@ int findClientByRentDate(clientNode* tree, const char* date, clientNode_l** head
     return 1;
 }
 
+/*gets searching parameter, and input from user.
+ * returns all clients that*/
 clientList* findClient(clientNode* tree){
     clientList *clients;
     int userChoice;
@@ -321,6 +347,7 @@ clientList* findClient(clientNode* tree){
     return clients;
 }
 
+/*free allocated memory of linked list*/
 int clearClientsList(clientList* list){
     clientNode_l * temp;
 
@@ -335,6 +362,7 @@ int clearClientsList(clientList* list){
     return 1;
 }
 
+/*prints clients names in liked list*/
 void printClientList(clientList* list){
     clientNode_l * temp;
     if (!list){

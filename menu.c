@@ -29,7 +29,7 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
                 puts("please enter your choose\n"
                      "      1.add new client\n"
                      "      2.delete client\n"
-                     "      3.find client\n"/*TODO whatthe fuck shold i do in here*/
+                     "      3.find client\n"
                      "      4.print all clients with given rent date\n"
                      "      5.get how many client's there are with car from given car year\n"
                      "      0.delete all clients\n"
@@ -67,7 +67,7 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
                     puts("cleaning suppliers list.....\ndone!");
                     puts("cleaning clients list.....\ndone!");
                     puts("you good to go!\nByeBye");
-                    check_for_exit();   /*TODO delete before compilation*/
+                    check_for_exit();
                     exit(0);}
                 else{break;}
             default:
@@ -97,10 +97,10 @@ void carSwitch(int carChoose,carBST*  carTree) {
         case 3:
             temp = carNumberWithGivenCapacity(carTree->root,0);
             if (temp != 0){
-                printf("there are %d cars with given capacity",temp );
+                printf("there are %d cars with given capacity",temp);
 
             } else
-                puts("there are no cars with give capacity");
+                puts("there are no cars with given capacity");
             temp=-1;
             break;
         case 0:
@@ -138,11 +138,11 @@ void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot) {
                     if (clientTree->size <temp) {
                         puts("client deleted from data base");
                     }
-                    else puts("couldn't find id ");
+                    else puts("couldn't find ID");
                     temp =-1;
                     break;
             case 3:
-                found=findClient(clientTree->root);/*TODO check about free issues*/
+                found = findClient(clientTree->root);
             if (!found->head){
                 puts("client didn't found");}
             else printClientList(found);

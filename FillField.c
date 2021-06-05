@@ -82,6 +82,8 @@ int fillFieldDouble(double * field, int size,int fixed){
     *field = atof(userInput);
     return 1;
 }
+
+/*gets source string, returns new dynamic allocated string*/
 char* copyField(char* source){
     char * dest;
     dest = ALLOC(char, strlen(source)+1);

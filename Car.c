@@ -2,7 +2,7 @@
 #include <string.h>
 #include "FillField.h"
 
-/*creates new car binary search tree pointer*/
+/*allocating new binary search tree pointer. sets values to 0.*/
 carBST* createCarTree(){
     carBST* newTree;
     newTree = ALLOC(carBST , 1);
@@ -15,6 +15,7 @@ carBST* createCarTree(){
 carNode* appendCarToTree(carNode* root, Car new_car, carBST* carTree){
     carNode* newNode;
     if(!root){
+        /*allocating new node. increasing size.*/
         newNode = ALLOC(carNode ,1);
         newNode->car = new_car;
         newNode->left = newNode->right = NULL;
@@ -23,6 +24,7 @@ carNode* appendCarToTree(carNode* root, Car new_car, carBST* carTree){
         return newNode;
     }
 
+    /*prevent license number duplication*/
     if(new_car.licenseNum == root->car.licenseNum) {
         puts("License number already exists in Data Base.");
         return root;
@@ -105,21 +107,24 @@ int freeCar(carNode* node){
     return 1;
 }
 
-int deepCopyCarFields(carNode* tree,Car follower){
-    freeCar(tree);
-    tree->car.manufacturer = copyField(follower.manufacturer);
-    tree->car.color = copyField(follower.color);
-    tree->car.model = copyField(follower.model);
-    tree->car.licenseNum = follower.licenseNum;
-    tree->car.manufactorYear = follower.manufactorYear;
-    tree->car.velocity = follower.velocity;
-    tree->car.onRoadSince = follower.onRoadSince;
-    tree->car.currentPrice = follower.currentPrice;
-    tree->car.priceFromSupplier = follower.priceFromSupplier;
-    strcpy(tree->car.chassisNum, follower.chassisNum);
+/*copying data to destination node.
+ * allocating new memory for dynamic allocated data copying.*/
+int deepCopyCarFields(carNode* dest, Car source){
+    freeCar(dest);
+    dest->car.manufacturer = copyField(source.manufacturer);
+    dest->car.color = copyField(source.color);
+    dest->car.model = copyField(source.model);
+    dest->car.licenseNum = source.licenseNum;
+    dest->car.manufactorYear = source.manufactorYear;
+    dest->car.velocity = source.velocity;
+    dest->car.onRoadSince = source.onRoadSince;
+    dest->car.currentPrice = source.currentPrice;
+    dest->car.priceFromSupplier = source.priceFromSupplier;
+    strcpy(dest->car.chassisNum, source.chassisNum);
 
     return 1;
 }
+
 /*delete carNode by given license number*/
 /*license parameter always starts as 0.*/
 carNode* deleteCar(carNode* tree, double license,carBST* bst){
@@ -183,7 +188,8 @@ carNode* deleteCar(carNode* tree, double license,carBST* bst){
     return tree;
 }
 
-/*free all the nodes from the tree. returns empty pointer*/
+/*help function for deleteAllCars.
+ * free all the nodes from the tree.*/
 int deleteAllcarsNodes(carNode* tree){
     if(!tree){
         return 1;
@@ -194,6 +200,8 @@ int deleteAllcarsNodes(carNode* tree){
     freeCar(tree);
     return 1;
 }
+
+/*clears all tree nodes, sets values to 0.*/
 int deleteAllCars(carBST* tree){
     deleteAllcarsNodes(tree->root);
     tree->root = NULL;

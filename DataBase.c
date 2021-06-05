@@ -1,5 +1,4 @@
 #include "DataBase.h"
-#include <string.h>
 #include <stdio.h>
 
 /*returns manufacturing year of a car by a given license number*/
@@ -16,7 +15,7 @@ int getCarYearByLicense(carNode * tree ,double license){
     return getCarYearByLicense(tree->right , license);
 }
 
-
+/*returns number of clients who rented a car with a given manufacture year.*/
 int clientNumberWithGivenCarYear(carNode * car_tree, clientNode * client_tree, int year) {
     int counter = 0, userYearChoice;
 

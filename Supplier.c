@@ -3,7 +3,7 @@
 #include "FillField.h"
 #include <stdio.h>
 
-/*creates new supplier binary search tree pointer*/
+/*allocating new binary search tree pointer. sets values to 0.*/
 supplierBST * createSupplierTree(){
     supplierBST * newTree;
     newTree = ALLOC(supplierBST, 1);
@@ -12,11 +12,11 @@ supplierBST * createSupplierTree(){
     return newTree;
 }
 
-
-/*help function to call in addNewSupplier*/
+/*help function to call in addNewSupplier. orders tree by IDs*/
 supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier,supplierBST* supplierBst){
     supplierNode * newNode;
     if(!tree){
+        /*allocating new node. increasing size.*/
         newNode = ALLOC(supplierNode ,1);
         newNode->supplier = newSupplier;
         newNode->left = newNode->right = NULL;
@@ -25,6 +25,7 @@ supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier,su
         return newNode;
     }
 
+    /*prevent ID duplication*/
     if(newSupplier.id == tree->supplier.id) {
         puts("ID already exists in Data Base.");
         return tree;
@@ -80,13 +81,15 @@ int freeSupplier(supplierNode * node){
     return 1;
 }
 
-int deepCopySuppliersFields(supplierNode * tree,Supplier follower){
-    freeSupplier(tree);
-    tree->supplier.name = copyField(follower.name);
-    tree->supplier.pastTransactionsSum = follower.pastTransactionsSum;
-    tree->supplier.pastTransactionsNumber= follower.pastTransactionsSum;
-    tree->supplier.id=follower.id;
-    strcpy(tree->supplier.phoneNumber,follower.phoneNumber);
+/*copying data to destination node.
+ * allocating new memory for dynamic allocated data copying.*/
+int deepCopySuppliersFields(supplierNode * dest, Supplier source){
+    freeSupplier(dest);
+    dest->supplier.name = copyField(source.name);
+    dest->supplier.pastTransactionsSum = source.pastTransactionsSum;
+    dest->supplier.pastTransactionsNumber= source.pastTransactionsSum;
+    dest->supplier.id=source.id;
+    strcpy(dest->supplier.phoneNumber, source.phoneNumber);
     return 1;
 }
 
@@ -156,7 +159,8 @@ supplierNode * deleteSupplier(supplierNode * tree, double id, supplierBST* bst){
     return tree;
 }
 
-/*free all the nodes from the tree. returns empty pointer*/
+/*help function for deleteAllSuppliers.
+ *free all the nodes from the tree.*/
 int deleteAllNodesSupplier(supplierNode * tree){
     if(!tree){
         return 1;
@@ -167,6 +171,8 @@ int deleteAllNodesSupplier(supplierNode * tree){
     freeSupplier(tree);
     return 1;
 }
+
+/*clears all tree nodes, sets values to 0.*/
 int deleteAllSuppliers(supplierBST * tree){
     deleteAllNodesSupplier(tree->root);
     tree->root =NULL;
@@ -189,20 +195,22 @@ void threeGreatestSupplierBubble(Supplier*  greatest){
     }
 }
 
-
+/*help function for threeGreatestSuppliers.
+ *adds supplier to the array if it's in the current three greatest.*/
 void addToGreatest(Supplier* greatest,supplierNode* tree){
     if (!tree){
         return;
     }
     if (tree->supplier.pastTransactionsSum>greatest[0].pastTransactionsSum){
         greatest[0]=tree->supplier;
+        /*keeps the array sorted every call.*/
         threeGreatestSupplierBubble(greatest);
     }
     addToGreatest(greatest,tree->left);
     addToGreatest(greatest,tree->right);
 }
 
-/*return array containing the id of the 3 suppliers with the highest pastTransactionsSum*/
+/*creates and prints an array, containing the id of the 3 suppliers with the highest pastTransactionsSum*/
 int threeGreatestSuppliers(supplierBST tree){
     Supplier greatest[3];
     int i;
@@ -219,7 +227,7 @@ int threeGreatestSuppliers(supplierBST tree){
     return 1;
 }
 
-
+/*returns the average of past transactions sum of all suppliers in tree.*/
 double averageOfSupplierMoney(supplierNode* tree ,int n){
     double res;
     if (!tree){
