@@ -2,8 +2,7 @@
 #include <stdio.h>
 
 void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree){
-    int choose,carChoose,clientChoose,supplierChoose,exitChoose,threeGreatestChoose,temp;
-    clientList * found;
+    int choose,carChoose,clientChoose,supplierChoose,exitChoose;
     puts("Welcome to CarsOrganizer \n(BETA version)");
     puts("initializing data base \ncreating cars list.....\ndone!\ncreating suppliers list.....\ndone!\ncreating clients list.....\ndone!\n");
     while(1){
@@ -23,7 +22,7 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
                      "      0.delete all cars\n"
                      "      any other digit to return\n");
                 fillFieldInt(&carChoose,1,1,1);
-                carSwitch(carChoose, carTree,temp);
+                carSwitch(carChoose, carTree);
                 break;
 
             case 2:
@@ -36,7 +35,7 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
                      "      0.delete all clients\n"
                      "      any other digit to return\n");
                 fillFieldInt(&clientChoose,1,1,1);
-                clientSwitch(clientChoose, clientTree,carTree->root,temp,found);
+                clientSwitch(clientChoose, clientTree,carTree->root);
                 break;
 
             case 3:
@@ -49,7 +48,7 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
                      "      0.delete all suppliers\n"
                      "      any other digit to return\n");
                 fillFieldInt(&supplierChoose,1,1,1);
-                supplierSwitch(supplierChoose, supplierTree,temp);
+                supplierSwitch(supplierChoose, supplierTree);
                 break;
             case 0:
                 puts("Are you sure?\n"
@@ -76,7 +75,8 @@ void menu(carBST * carTree , supplierBST * supplierTree, clientBST * clientTree)
         }
     }
 }
-void carSwitch(int carChoose,carBST*  carTree,int temp) {
+void carSwitch(int carChoose,carBST*  carTree) {
+    int temp;
     switch (carChoose) {
         case 1:
             addNewCar(carTree);
@@ -88,7 +88,7 @@ void carSwitch(int carChoose,carBST*  carTree,int temp) {
             }
             temp =carTree->size;
             carTree->root=deleteCar(carTree->root, 0,carTree);
-            if (carTree->size >temp) {
+            if (carTree->size <temp) {
                 puts("car deleted from data base");
             }
             else puts("couldn't find license num ");
@@ -121,7 +121,9 @@ void carSwitch(int carChoose,carBST*  carTree,int temp) {
 }
 
 
-void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot ,int temp,clientList*  found) {
+void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot) {
+    int temp = 0;
+    clientList*  found = NULL;
     switch (clientChoose) {
             case 1:
                 addNewClient(clientTree);
@@ -133,15 +135,18 @@ void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot ,int t
                 }
                     temp =clientTree->size;
                     clientTree->root=deleteClient(clientTree->root, 0,clientTree);
-                    if (clientTree->size >temp) {
+                    if (clientTree->size <temp) {
                         puts("client deleted from data base");
                     }
                     else puts("couldn't find id ");
                     temp =-1;
                     break;
             case 3:
-                found=findClient(clientTree->root);
-                printClientList(found);
+                found=findClient(clientTree->root);/*TODO check about free issues*/
+            if (!found->head){
+                puts("client didn't found");}
+            else printClientList(found);
+            clearClientsList(found);
                 break;
             case 4:
                 printClientCarsForGivenRentDate(clientTree->root);
@@ -174,7 +179,8 @@ void clientSwitch(int clientChoose,clientBST* clientTree,carNode* carRoot ,int t
 
 
 
-void supplierSwitch(int supplierChoose, supplierBST* supplierTree,int temp){
+void supplierSwitch(int supplierChoose, supplierBST* supplierTree){
+    int temp;
     switch (supplierChoose) {
         case 1:
             addNewSupplier(supplierTree);

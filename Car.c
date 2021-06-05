@@ -7,30 +7,32 @@ carBST* createCarTree(){
     carBST* newTree;
     newTree = ALLOC(carBST , 1);
     newTree->root = NULL;
+    newTree->size = 0;
     return newTree;
 }
 
-/*help function to call in addNewCar. orders tree by license number*/
-carNode* appendCarToTree(carNode* tree, Car new_car){
+/*help function to call in addNewCar. orders root by license number*/
+carNode* appendCarToTree(carNode* root, Car new_car, carBST* carTree){
     carNode* newNode;
-    if(!tree){
+    if(!root){
         newNode = ALLOC(carNode ,1);
         newNode->car = new_car;
         newNode->left = newNode->right = NULL;
         puts("Car added to tree!");
+        carTree->size+=1;
         return newNode;
     }
 
-    if(new_car.licenseNum == tree->car.licenseNum) {
+    if(new_car.licenseNum == root->car.licenseNum) {
         puts("License number already exists in Data Base.");
-        return tree;
+        return root;
     }
-    if(new_car.licenseNum < tree->car.licenseNum) /* Go left*/
-        tree->left = appendCarToTree(tree->left, new_car);
+    if(new_car.licenseNum < root->car.licenseNum) /* Go left*/
+        root->left = appendCarToTree(root->left, new_car, carTree);
     else{ /* Go right*/
-        tree->right = appendCarToTree(tree->right, new_car);
+        root->right = appendCarToTree(root->right, new_car, carTree);
     }
-    return tree;
+    return root;
 }
 
 /*adds new car to the cars tree.*/
@@ -87,7 +89,8 @@ int addNewCar(carBST* tree) {
     new_car.velocity = velocity;
 
     /*creates new node and puts it in the tree*/
-    tree->root = appendCarToTree(tree->root, new_car);
+    tree->root = appendCarToTree(tree->root, new_car, tree);
+
     return 1;
 }
 
@@ -137,7 +140,7 @@ carNode* deleteCar(carNode* tree, double license,carBST* bst){
     /* searching wanted car in tree's children*/
     if(tree->car.licenseNum != userInput) {
         /* Go left*/
-        if( license < (tree->car.licenseNum)) {
+        if( userInput < (tree->car.licenseNum)) {
             tree->left = deleteCar(tree->left, userInput,bst);
         }
         /* Go right*/

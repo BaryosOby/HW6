@@ -26,7 +26,7 @@ supplierBST * createSupplierTree();
 int addNewSupplier(supplierBST * tree);
 
 /*help function to call in addNewSupplier*/
-supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier);
+supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier,supplierBST* supplierBst);
 
 supplierNode * deleteSupplier(supplierNode * tree, double id, supplierBST* bst);
 

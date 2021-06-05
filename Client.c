@@ -12,13 +12,14 @@ clientBST* createClientTree(){
 }
 
 /*help function to call in addNewClient. orders tree by ids*/
-clientNode * appendClientToTree(clientNode* tree, Client newClient){
+clientNode * appendClientToTree(clientNode* tree, Client newClient,clientBST* clientBst){
     clientNode * newNode;
     if(!tree){
         newNode = ALLOC(clientNode ,1);
         newNode->client = newClient;
         newNode->left = newNode->right = NULL;
         puts("client added to the data base.");
+        clientBst->size+=1;
         return newNode;
     }
 
@@ -27,10 +28,10 @@ clientNode * appendClientToTree(clientNode* tree, Client newClient){
         return tree;
     }
     if(newClient.id < tree->client.id) { /* Go left*/
-        tree->left = appendClientToTree(tree->left, newClient);
+        tree->left = appendClientToTree(tree->left, newClient,clientBst);
     }
     else{ /* Go right*/
-        tree->right = appendClientToTree(tree->right, newClient);
+        tree->right = appendClientToTree(tree->right, newClient,clientBst);
     }
     return tree;
 }
@@ -76,8 +77,7 @@ int addNewClient(clientBST* tree){
     newClient.priceForDay = priceForDay;
 
     /*creates new node and puts it in the list*/
-    tree->root = appendClientToTree(tree->root, newClient);
-    tree->size+=1;
+    tree->root = appendClientToTree(tree->root, newClient,tree);
     return 1;
 }
 
@@ -185,7 +185,7 @@ int printClientCarsForGivenRentDate_rec(clientNode* tree, char* userInput){
 
     /*prints client's name and surname*/
     if (strcmp(userInput, tree->client.rentDate) == 0) {
-        printf("\n\t%s %s\n", tree->client.name, tree->client.surname);
+        printf("\t%s %s\n", tree->client.name, tree->client.surname);
         flag =1;
     }
 
@@ -206,7 +206,7 @@ void printClientCarsForGivenRentDate(clientNode * tree) {
     puts("please enter a rent date to check: ");
     fillFieldStr(userInput, 10, 3, 1);
 
-    printf("clients who rented a car at %s:", userInput);
+    printf("clients who rented a car at %s:\n", userInput);
     flag = printClientCarsForGivenRentDate_rec(tree, userInput);
     if (!flag) {
         puts("\n\tno clients found...");
@@ -226,10 +226,10 @@ int deepCopyClientFields(clientNode_l* dest, Client source){
 
 /*---------------------findClient functions---------------------*/
 
-clientNode_l *createClientNode_l(clientNode_l ** head, Client client){
+clientNode_l *createClientNode_l(Client client){
     clientNode_l * new = ALLOC(clientNode_l,1);
     new->next = NULL;
-    new->client = client;
+    deepCopyClientFields(new, client);
     return new;
 }
 
@@ -239,7 +239,7 @@ int findClientByID(clientNode* tree, double id, clientNode_l** head){
         return 0;
     }
     if(tree->client.id == id){
-        *head = createClientNode_l(head,tree->client);
+        *head = createClientNode_l(tree->client);
         return 1;
     }
     if(tree->client.id > id){
@@ -252,9 +252,7 @@ int insertNewNode(clientNode_l** head, Client client){
     clientNode_l *newNode = NULL, *curr;
 
     /*initializing new node. */
-    newNode = ALLOC(clientNode_l, 1);
-    newNode->next = NULL;
-    newNode->client = client;
+    newNode = createClientNode_l(client);
 
     /*true when list is empty, or client's id is smaller then first node's*/
     if ((*head == NULL) || (*head)->client.id >= client.id) {
@@ -275,7 +273,7 @@ int insertNewNode(clientNode_l** head, Client client){
     return 1;
 }
 
-/*TODO free clients list in menu*/
+
 int findClientByRentDate(clientNode* tree, const char* date, clientNode_l** head){
     if(!tree){
         return 0;
@@ -288,7 +286,6 @@ int findClientByRentDate(clientNode* tree, const char* date, clientNode_l** head
     return 1;
 }
 
-/*TODO free list in menu*/
 clientList* findClient(clientNode* tree){
     clientList *clients;
     int userChoice;
@@ -296,11 +293,11 @@ clientList* findClient(clientNode* tree){
     char dateInput[11];
 
     if(!tree){
-        puts("there are no clients in data base.");
         return NULL;
     }
 
     clients = ALLOC(clientList,1);
+    clients->head = NULL;
 
     puts("how would you like to search for client?\n"
          "\t 1. by ID."
@@ -324,38 +321,31 @@ clientList* findClient(clientNode* tree){
     return clients;
 }
 
-int clearClientsList(clientNode_l* head){
-
-    /*recursive function. saves the next node's address and free the current one.*/
+int clearClientsList(clientList* list){
     clientNode_l * temp;
-    /*base case - empty pointer*/
-    if (!head){
-        return 1;
+
+    while (list->head){
+        temp = list->head->next;
+        FREE(list->head->client.name);
+        FREE(list->head->client.surname);
+        FREE(list->head);
+        list->head = temp;
     }
-    /*saves the address of the next node and frees the current one*/
-    temp = (head)->next;
-    FREE((head)->client.name);
-    FREE((head)->client.surname);
-    FREE(head);
-    clearClientsList(temp);
-    head = NULL;
+    FREE(list);
     return 1;
 }
 
 void printClientList(clientList* list){
     clientNode_l * temp;
-    temp=list->head;
-    if (!temp){
-        puts("client didn't found");
+    if (!list){
         return;
     }
+    temp=list->head;
     while (temp){
-        printf("client name %s",temp->client.name);
+        printf("client name: %s %s\n",temp->client.name,temp->client.surname);
         temp=temp->next;
     }
-    /*clearClientsList(list->head);*/
 }
-
 
 
 

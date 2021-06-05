@@ -14,13 +14,14 @@ supplierBST * createSupplierTree(){
 
 
 /*help function to call in addNewSupplier*/
-supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier){
+supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier,supplierBST* supplierBst){
     supplierNode * newNode;
     if(!tree){
         newNode = ALLOC(supplierNode ,1);
         newNode->supplier = newSupplier;
         newNode->left = newNode->right = NULL;
         puts("supplier added to Data Base.");
+        supplierBst->size += 1;
         return newNode;
     }
 
@@ -29,9 +30,9 @@ supplierNode * appendSupplierToTree(supplierNode * tree, Supplier newSupplier){
         return tree;
     }
     if(newSupplier.id < tree->supplier.id) /* Go left*/
-        tree->left = appendSupplierToTree(tree->left, newSupplier);
+        tree->left = appendSupplierToTree(tree->left, newSupplier,supplierBst);
     else /* Go right*/
-        tree->right = appendSupplierToTree(tree->right, newSupplier);
+        tree->right = appendSupplierToTree(tree->right, newSupplier,supplierBst);
 
     return tree;
 }
@@ -68,8 +69,7 @@ int addNewSupplier(supplierBST* tree){
     new_supplier.pastTransactionsSum = pastTransactionsSum;
 
     /*creates new node and puts it in the tree*/
-    tree->root = appendSupplierToTree(tree->root, new_supplier);
-    tree->size += 1;
+    tree->root = appendSupplierToTree(tree->root, new_supplier,tree);
     return 1;
 }
 

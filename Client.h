@@ -40,7 +40,7 @@ clientBST * createClientTree();
 int addNewClient(clientBST * tree);
 
 /*help function to call in addNewClient*/
-clientNode * appendClientToTree(clientNode * tree, Client newClient);
+clientNode * appendClientToTree(clientNode * tree, Client newClient,clientBST* clientBst);
 
 
 /*gets id number of a client and delete it from the list. returns the tree's root.*/
@@ -51,9 +51,10 @@ int deleteAllClients(clientBST * tree);
 
 void printClientCarsForGivenRentDate(clientNode * tree);
 
-int clearClientsList(clientNode_l* head);
+int clearClientsList(clientList* list);
 
 clientList* findClient(clientNode* tree);
+
 void printClientList(clientList* list);
 
 #endif
